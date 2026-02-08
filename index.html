@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rasheek & Radyah — Save the Date</title>
   <meta name="theme-color" content="#f6f2ea" />
+
   <style>
     :root{
       --bg1:#fbf8f1;
@@ -76,7 +77,10 @@
       transition: all 700ms var(--ease);
       overflow:hidden;
       border: 1px solid rgba(0,0,0,.05);
+      transition-delay: 0ms;
     }
+    .open .card{ transition-delay: 250ms; }
+
     .card::before{
       content:"";
       position:absolute;
@@ -266,204 +270,229 @@
       margin: 8px 0 0;
     }
 
-   /* ENVELOPE */
-.envelope{
-  width:min(520px, 100%);
-  max-width:520px;
-  height: 420px;
-  position:relative;
-  filter: drop-shadow(0 18px 40px rgba(0,0,0,.14));
-  transform: translateY(20px);
-  transition: transform 900ms var(--ease), opacity 900ms var(--ease);
-  perspective: 1200px;
-}
+    /* =========================
+       ENVELOPE (UPGRADED OPEN)
+       ========================= */
+    .envelope{
+      width:min(520px, 100%);
+      max-width:520px;
+      height: 420px;
+      position:relative;
+      filter: drop-shadow(0 18px 40px rgba(0,0,0,.14));
+      transform: translateY(20px);
+      transition: transform 900ms var(--ease), opacity 900ms var(--ease);
+      perspective: 1200px;
+    }
 
-.envBody{
-  position:absolute;
-  inset:0;
-  border-radius: 26px;
-  background: linear-gradient(180deg, #ffffff, #f3ecdf);
-  border: 1px solid rgba(0,0,0,.08);
-  overflow:hidden;
-}
+    .envBody{
+      position:absolute;
+      inset:0;
+      border-radius: 26px;
+      background: linear-gradient(180deg, #ffffff, #f3ecdf);
+      border: 1px solid rgba(0,0,0,.08);
+      overflow:hidden;
+    }
 
-/* bottom flap */
-.flapBottom{
-  position:absolute;
-  left:0;right:0;bottom:-1px;height:56%;
-  background: linear-gradient(180deg, #f7f1e6, #efe5d5);
-  clip-path: polygon(0 100%, 50% 18%, 100% 100%, 100% 0, 0 0);
-  border-top: 1px solid rgba(0,0,0,.06);
-}
+    .flapBottom{
+      position:absolute;
+      left:0;right:0;bottom:-1px;height:56%;
+      background: linear-gradient(180deg, #f7f1e6, #efe5d5);
+      clip-path: polygon(0 100%, 50% 18%, 100% 100%, 100% 0, 0 0);
+      border-top: 1px solid rgba(0,0,0,.06);
+    }
 
-/* left & right folds */
-.foldL, .foldR{
-  position:absolute; top:0; bottom:0; width:55%;
-  background: linear-gradient(180deg, #fffaf0, #f0e6d6);
-  opacity:.92;
-  transition: transform 900ms var(--ease);
-}
-.foldL{
-  left:-1px;
-  clip-path: polygon(0 0, 100% 50%, 0 100%);
-  border-right: 1px solid rgba(0,0,0,.06);
-  transform-origin: left center;
-}
-.foldR{
-  right:-1px;
-  clip-path: polygon(100% 0, 100% 100%, 0 50%);
-  border-left: 1px solid rgba(0,0,0,.06);
-  transform-origin: right center;
-}
+    .foldL, .foldR{
+      position:absolute; top:0; bottom:0; width:55%;
+      background: linear-gradient(180deg, #fffaf0, #f0e6d6);
+      opacity:.92;
+      transition: transform 900ms var(--ease);
+    }
+    .foldL{
+      left:-1px;
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      border-right: 1px solid rgba(0,0,0,.06);
+      transform-origin: left center;
+    }
+    .foldR{
+      right:-1px;
+      clip-path: polygon(100% 0, 100% 100%, 0 50%);
+      border-left: 1px solid rgba(0,0,0,.06);
+      transform-origin: right center;
+    }
 
-/* top flap (opens) */
-.flapTop{
-  position:absolute;
-  left:-1px; right:-1px; top:-1px; height:60%;
-  background: linear-gradient(180deg, #fbf6ec, #f1e6d6);
-  clip-path: polygon(0 0, 100% 0, 50% 88%);
-  transform-origin: top center;
-  transform: rotateX(0deg);
-  transition: transform 1050ms var(--ease);
-  border-bottom: 1px solid rgba(0,0,0,.06);
-  backface-visibility:hidden;
-  z-index:3;
-}
+    .flapTop{
+      position:absolute;
+      left:-1px; right:-1px; top:-1px; height:60%;
+      background: linear-gradient(180deg, #fbf6ec, #f1e6d6);
+      clip-path: polygon(0 0, 100% 0, 50% 88%);
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform 1050ms var(--ease);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      backface-visibility:hidden;
+      z-index:3;
+    }
 
-/* “paper” peek */
-.peek{
-  position:absolute;
-  left:50%;
-  top:18%;
-  transform: translateX(-50%);
-  width:86%;
-  height: 64%;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #fffdf8, #f6efe2);
-  border: 1px solid rgba(0,0,0,.06);
-  z-index:1;
-}
-.peekLine{
-  position:absolute;
-  inset:22px 18px auto 18px;
-  height:2px;
-  background: linear-gradient(90deg, transparent, rgba(201,168,106,.65), transparent);
-}
+    .peek{
+      position:absolute;
+      left:50%;
+      top:18%;
+      transform: translateX(-50%);
+      width:86%;
+      height: 64%;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fffdf8, #f6efe2);
+      border: 1px solid rgba(0,0,0,.06);
+      z-index:1;
+    }
+    .peekLine{
+      position:absolute;
+      inset:22px 18px auto 18px;
+      height:2px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,106,.65), transparent);
+    }
 
-/* LETTER that slides out */
-.letter{
-  position:absolute;
-  left:50%;
-  top:26px;
-  transform: translateX(-50%) translateY(120px);
-  width:86%;
-  height: 70%;
-  border-radius: 20px;
-  background: linear-gradient(180deg, #fffdf8, #f6efe2);
-  border: 1px solid rgba(0,0,0,.08);
-  box-shadow: 0 16px 30px rgba(0,0,0,.10);
-  z-index:2;
-  transition: transform 1200ms var(--ease), opacity 700ms var(--ease);
-  opacity: .85;
-}
-.letterInner{
-  height:100%;
-  padding:18px 18px 14px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-.letterMono{
-  width:56px;height:56px;border-radius:50%;
-  display:grid;place-items:center;
-  border: 1px solid rgba(0,0,0,.08);
-  background: radial-gradient(circle at 30% 30%, #ffffff, #f1eadc);
-  box-shadow: 0 10px 18px rgba(0,0,0,.08);
-  font-family: ui-serif, Georgia, "Times New Roman", serif;
-  font-weight:800;
-  color:#3a2f1e;
-}
-.letterLine{
-  width:70%;
-  height:2px;
-  background: linear-gradient(90deg, transparent, rgba(201,168,106,.8), transparent);
-  margin-top:4px;
-}
-.letterText{
-  font-size:14px;
-  color: var(--muted);
-}
+    /* Letter that slides out */
+    .letter{
+      position:absolute;
+      left:50%;
+      top:26px;
+      transform: translateX(-50%) translateY(120px);
+      width:86%;
+      height: 70%;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #fffdf8, #f6efe2);
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 16px 30px rgba(0,0,0,.10);
+      z-index:2;
+      transition: transform 1200ms var(--ease), opacity 700ms var(--ease);
+      opacity: .85;
+    }
+    .letterInner{
+      height:100%;
+      padding:18px 18px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+    .letterMono{
+      width:56px;height:56px;border-radius:50%;
+      display:grid;place-items:center;
+      border: 1px solid rgba(0,0,0,.08);
+      background: radial-gradient(circle at 30% 30%, #ffffff, #f1eadc);
+      box-shadow: 0 10px 18px rgba(0,0,0,.08);
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      font-weight:800;
+      color:#3a2f1e;
+    }
+    .letterLine{
+      width:70%;
+      height:2px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,106,.8), transparent);
+      margin-top:4px;
+    }
+    .letterText{
+      font-size:14px;
+      color: var(--muted);
+    }
 
-/* seal button (stays same, just ensure above) */
-.seal{
-  position:absolute;
-  left:50%; top:54%;
-  transform: translate(-50%,-50%);
-  width:92px;height:92px;border-radius:50%;
-  border:1px solid rgba(0,0,0,.10);
-  background: radial-gradient(circle at 30% 30%, #fff, #f0e5d3 58%, #e7d6b7);
-  box-shadow: 0 16px 30px rgba(0,0,0,.14);
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-  user-select:none;
-  z-index:5;
-  transition: transform 180ms ease, opacity 500ms var(--ease);
-}
-.seal:active{transform:translate(-50%,-50%) scale(.98)}
-.seal span{
-  font-family: ui-serif, Georgia, "Times New Roman", serif;
-  font-weight: 800;
-  letter-spacing:.6px;
-  color:#3a2f1e;
-  font-size:22px;
-}
-.seal small{
-  display:block;
-  margin-top:2px;
-  font-size:10px;
-  letter-spacing:.8px;
-  color: rgba(58,47,30,.75);
-  text-transform:uppercase;
-  text-align:center;
-}
+    /* Seal */
+    .seal{
+      position:absolute;
+      left:50%; top:54%;
+      transform: translate(-50%,-50%);
+      width:92px;height:92px;border-radius:50%;
+      border:1px solid rgba(0,0,0,.10);
+      background: radial-gradient(circle at 30% 30%, #fff, #f0e5d3 58%, #e7d6b7);
+      box-shadow: 0 16px 30px rgba(0,0,0,.14);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      user-select:none;
+      z-index:5;
+      transition: transform 180ms ease, opacity 500ms var(--ease);
+    }
+    .seal:active{transform:translate(-50%,-50%) scale(.98)}
+    .seal span{
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      font-weight: 800;
+      letter-spacing:.6px;
+      color:#3a2f1e;
+      font-size:22px;
+    }
+    .seal small{
+      display:block;
+      margin-top:2px;
+      font-size:10px;
+      letter-spacing:.8px;
+      color: rgba(58,47,30,.75);
+      text-transform:uppercase;
+      text-align:center;
+    }
 
-/* OPEN STATE — more “real” envelope opening */
-.open .flapTop{
-  transform: rotateX(-178deg);
-}
-.open .foldL{
-  transform: rotateY(-10deg);
-}
-.open .foldR{
-  transform: rotateY(10deg);
-}
-.open .seal{
-  opacity:0;
-  pointer-events:none;
-}
-.open .letter{
-  transform: translateX(-50%) translateY(-40px);
-  opacity:1;
-}
-.open .envelope{
-  transform: translateY(85px) scale(.94);
-  opacity:.28;
-}
-.open .card{
-  transform: translateY(-20px) scale(1);
-  opacity:1;
-  pointer-events:auto;
-}
+    /* OPEN STATE */
+    .open .flapTop{ transform: rotateX(-178deg); }
+    .open .foldL{ transform: rotateY(-10deg); }
+    .open .foldR{ transform: rotateY(10deg); }
+    .open .seal{ opacity:0; pointer-events:none; }
+    .open .letter{
+      transform: translateX(-50%) translateY(-40px);
+      opacity:1;
+    }
+    .open .envelope{
+      transform: translateY(85px) scale(.94);
+      opacity:.28;
+    }
+    .open .card{
+      transform: translateY(-20px) scale(1);
+      opacity:1;
+      pointer-events:auto;
+    }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .flapTop, .card, .envelope, .letter, .foldL, .foldR {transition:none !important}
-}
+    @media (prefers-reduced-motion: reduce){
+      .flapTop, .card, .envelope, .letter, .foldL, .foldR {transition:none !important}
+    }
+  </style>
+</head>
 
+<body>
+  <div class="wrap" id="app">
+    <div class="hint" id="hint">
+      <strong>Tap the seal to open your invitation.</strong><br/>
+      Light theme • Mobile friendly • Shareable via GitHub Pages
+    </div>
+
+    <div class="stage">
+      <!-- Envelope -->
+      <div class="envelope" aria-label="Envelope invitation">
+        <div class="envBody">
+          <div class="peek" aria-hidden="true"><div class="peekLine"></div></div>
+          <div class="foldL" aria-hidden="true"></div>
+          <div class="foldR" aria-hidden="true"></div>
+          <div class="flapBottom" aria-hidden="true"></div>
+          <div class="flapTop" aria-hidden="true"></div>
+        </div>
+
+        <!-- Letter that slides out -->
+        <div class="letter" aria-hidden="true">
+          <div class="letterInner">
+            <div class="letterMono">R♥R</div>
+            <div class="letterLine"></div>
+            <div class="letterText">Tap to reveal the details</div>
+          </div>
+        </div>
+
+        <!-- Seal button -->
+        <div class="seal" id="openBtn" role="button" tabindex="0" aria-label="Open invitation">
+          <div style="text-align:center;line-height:1.05">
+            <span>R♥R</span>
+            <small>Tap to open</small>
+          </div>
+        </div>
+      </div>
 
       <!-- Invite Card -->
       <div class="card" id="card" aria-live="polite">
@@ -555,9 +584,9 @@
           </div>
 
           <div class="actions">
-            <button class="btn primary" id="icsBtn">Add to Calendar (.ics)</button>
-            <button class="btn" id="shareBtn">Copy Share Link</button>
-            <button class="btn" id="closeBtn">Close</button>
+            <button class="btn primary" id="icsBtn" type="button">Add to Calendar (.ics)</button>
+            <button class="btn" id="shareBtn" type="button">Copy Share Link</button>
+            <button class="btn" id="closeBtn" type="button">Close</button>
           </div>
 
           <p class="tiny">Tip: host this on GitHub Pages to share with everyone.</p>
@@ -566,148 +595,143 @@
     </div>
   </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // ===== SETTINGS =====
-  // Countdown target: Akht/Nikah date (26 Nov 2026) at 6:00 PM Dhaka time (UTC+6)
-  const targetISO = "2026-11-26T18:00:00+06:00";
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // ===== SETTINGS =====
+    const targetISO = "2026-11-26T18:00:00+06:00";
 
-  // ===== OPEN/CLOSE ENVELOPE =====
-  const app = document.getElementById("app");
-  const openBtn = document.getElementById("openBtn");
-  const closeBtn = document.getElementById("closeBtn");
-  const envelope = document.querySelector(".envelope");
+    // ===== OPEN/CLOSE ENVELOPE =====
+    const app = document.getElementById("app");
+    const openBtn = document.getElementById("openBtn");
+    const closeBtn = document.getElementById("closeBtn");
+    const envelope = document.querySelector(".envelope");
 
-  const openInvite = () => {
-    if (!app) return;
-    app.classList.add("open");
-    if (navigator.vibrate) navigator.vibrate(20);
-  };
+    const openInvite = () => {
+      if (!app) return;
+      app.classList.add("open");
+      if (navigator.vibrate) navigator.vibrate(20);
+    };
 
-  const closeInvite = () => {
-    if (!app) return;
-    app.classList.remove("open");
-  };
+    const closeInvite = () => {
+      if (!app) return;
+      app.classList.remove("open");
+    };
 
-  if (openBtn) {
-    openBtn.addEventListener("click", openInvite);
-    // iPhone/Safari sometimes prefers touchend for “tap”
-    openBtn.addEventListener(
-      "touchend",
-      (e) => { e.preventDefault(); openInvite(); },
-      { passive: false }
-    );
-    openBtn.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        openInvite();
-      }
-    });
-  }
-
-  // Bonus: tapping anywhere on the envelope also opens
-  if (envelope) {
-    envelope.addEventListener("click", openInvite);
-    envelope.addEventListener(
-      "touchend",
-      (e) => { e.preventDefault(); openInvite(); },
-      { passive: false }
-    );
-  }
-
-  if (closeBtn) closeBtn.addEventListener("click", closeInvite);
-
-  // ===== TABS =====
-  const tabBtns = document.querySelectorAll(".tabBtn");
-  const panels = {
-    ctg: document.getElementById("ctg"),
-    dhk: document.getElementById("dhk")
-  };
-
-  tabBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      tabBtns.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      const tab = btn.dataset.tab;
-      Object.values(panels).forEach((p) => p && p.classList.remove("active"));
-      if (panels[tab]) panels[tab].classList.add("active");
-
-      tabBtns.forEach((b) =>
-        b.setAttribute("aria-selected", b === btn ? "true" : "false")
+    if (openBtn) {
+      openBtn.addEventListener("click", openInvite);
+      openBtn.addEventListener(
+        "touchend",
+        (e) => { e.preventDefault(); openInvite(); },
+        { passive: false }
       );
-    });
-  });
-
-  // ===== COUNTDOWN =====
-  const dd = document.getElementById("dd");
-  const hh = document.getElementById("hh");
-  const mm = document.getElementById("mm");
-  const ss = document.getElementById("ss");
-
-  const target = new Date(targetISO).getTime();
-
-  function pad(n) { return String(n).padStart(2, "0"); }
-
-  function tick() {
-    const now = Date.now();
-    let diff = Math.max(0, target - now);
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    diff -= days * (1000 * 60 * 60 * 24);
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    diff -= hours * (1000 * 60 * 60);
-    const mins = Math.floor(diff / (1000 * 60));
-    diff -= mins * (1000 * 60);
-    const secs = Math.floor(diff / 1000);
-
-    if (dd) dd.textContent = String(days);
-    if (hh) hh.textContent = pad(hours);
-    if (mm) mm.textContent = pad(mins);
-    if (ss) ss.textContent = pad(secs);
-  }
-
-  tick();
-  setInterval(tick, 1000);
-
-  // ===== SHARE BUTTON =====
-  const shareBtn = document.getElementById("shareBtn");
-  if (shareBtn) {
-    shareBtn.addEventListener("click", async () => {
-      const url = window.location.href;
-      try {
-        if (navigator.share) {
-          await navigator.share({
-            title: "Rasheek & Radyah — Save the Date",
-            text: "Save the Date — 26.11.26",
-            url
-          });
-        } else {
-          await navigator.clipboard.writeText(url);
-          shareBtn.textContent = "Link Copied ✅";
-          setTimeout(() => (shareBtn.textContent = "Copy Share Link"), 1400);
+      openBtn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openInvite();
         }
-      } catch (e) {
-        // fallback copy
-        try {
-          await navigator.clipboard.writeText(url);
-          shareBtn.textContent = "Link Copied ✅";
-          setTimeout(() => (shareBtn.textContent = "Copy Share Link"), 1400);
-        } catch (_) {}
-      }
+      });
+    }
+
+    // Bonus: tapping anywhere on the envelope also opens
+    if (envelope) {
+      envelope.addEventListener("click", openInvite);
+      envelope.addEventListener(
+        "touchend",
+        (e) => { e.preventDefault(); openInvite(); },
+        { passive: false }
+      );
+    }
+
+    if (closeBtn) closeBtn.addEventListener("click", closeInvite);
+
+    // ===== TABS =====
+    const tabBtns = document.querySelectorAll(".tabBtn");
+    const panels = {
+      ctg: document.getElementById("ctg"),
+      dhk: document.getElementById("dhk")
+    };
+
+    tabBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tabBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const tab = btn.dataset.tab;
+        Object.values(panels).forEach((p) => p && p.classList.remove("active"));
+        if (panels[tab]) panels[tab].classList.add("active");
+
+        tabBtns.forEach((b) =>
+          b.setAttribute("aria-selected", b === btn ? "true" : "false")
+        );
+      });
     });
-  }
 
-  // ===== ICS DOWNLOAD =====
-  const icsBtn = document.getElementById("icsBtn");
-  if (icsBtn) {
-    icsBtn.addEventListener("click", () => {
-      // Create a simple calendar file for Akht/Nikah (all-day event).
-      // You can change SUMMARY / LOCATION anytime.
-      const dtStart = "20261126";
-      const dtEnd = "20261127";
+    // ===== COUNTDOWN =====
+    const dd = document.getElementById("dd");
+    const hh = document.getElementById("hh");
+    const mm = document.getElementById("mm");
+    const ss = document.getElementById("ss");
 
-      const ics =
+    const target = new Date(targetISO).getTime();
+
+    function pad(n) { return String(n).padStart(2, "0"); }
+
+    function tick() {
+      const now = Date.now();
+      let diff = Math.max(0, target - now);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= days * (1000 * 60 * 60 * 24);
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * (1000 * 60 * 60);
+      const mins = Math.floor(diff / (1000 * 60));
+      diff -= mins * (1000 * 60);
+      const secs = Math.floor(diff / 1000);
+
+      if (dd) dd.textContent = String(days);
+      if (hh) hh.textContent = pad(hours);
+      if (mm) mm.textContent = pad(mins);
+      if (ss) ss.textContent = pad(secs);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    // ===== SHARE BUTTON =====
+    const shareBtn = document.getElementById("shareBtn");
+    if (shareBtn) {
+      shareBtn.addEventListener("click", async () => {
+        const url = window.location.href;
+        try {
+          if (navigator.share) {
+            await navigator.share({
+              title: "Rasheek & Radyah — Save the Date",
+              text: "Save the Date — 26.11.26",
+              url
+            });
+          } else {
+            await navigator.clipboard.writeText(url);
+            shareBtn.textContent = "Link Copied ✅";
+            setTimeout(() => (shareBtn.textContent = "Copy Share Link"), 1400);
+          }
+        } catch (e) {
+          try {
+            await navigator.clipboard.writeText(url);
+            shareBtn.textContent = "Link Copied ✅";
+            setTimeout(() => (shareBtn.textContent = "Copy Share Link"), 1400);
+          } catch (_) {}
+        }
+      });
+    }
+
+    // ===== ICS DOWNLOAD =====
+    const icsBtn = document.getElementById("icsBtn");
+    if (icsBtn) {
+      icsBtn.addEventListener("click", () => {
+        const dtStart = "20261126";
+        const dtEnd = "20261127";
+
+        const ics =
 `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//RasheekRadyah//SaveTheDate//EN
@@ -724,15 +748,17 @@ LOCATION:Chittagong, Bangladesh
 END:VEVENT
 END:VCALENDAR`;
 
-      const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "rasheek-radyah-save-the-date.ics";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(a.href);
-    });
-  }
-});
-</script>
+        const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "rasheek-radyah-save-the-date.ics";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(a.href);
+      });
+    }
+  });
+  </script>
+</body>
+</html>
