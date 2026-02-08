@@ -524,52 +524,173 @@
     </div>
   </div>
 
-  <script>
-    // ===== SETTINGS =====
-    // Countdown target: Akht/Nikah date (26 Nov 2026) at 6:00 PM Dhaka time (UTC+6)
-    // You can change the hour if you want.
-    const targetISO = "2026-11-26T18:00:00+06:00";
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // ===== SETTINGS =====
+  // Countdown target: Akht/Nikah date (26 Nov 2026) at 6:00 PM Dhaka time (UTC+6)
+  const targetISO = "2026-11-26T18:00:00+06:00";
 
-    // ===== OPEN/CLOSE ENVELOPE =====
-    const app = document.getElementById("app");
-    const openBtn = document.getElementById("openBtn");
-    const closeBtn = document.getElementById("closeBtn");
+  // ===== OPEN/CLOSE ENVELOPE =====
+  const app = document.getElementById("app");
+  const openBtn = document.getElementById("openBtn");
+  const closeBtn = document.getElementById("closeBtn");
+  const envelope = document.querySelector(".envelope");
 
-    function openInvite(){
-      app.classList.add("open");
-      // optional small vibration on mobile
-      if (navigator.vibrate) navigator.vibrate(20);
-    }
-    function closeInvite(){
-      app.classList.remove("open");
-    }
+  const openInvite = () => {
+    if (!app) return;
+    app.classList.add("open");
+    if (navigator.vibrate) navigator.vibrate(20);
+  };
 
+  const closeInvite = () => {
+    if (!app) return;
+    app.classList.remove("open");
+  };
+
+  if (openBtn) {
     openBtn.addEventListener("click", openInvite);
-    openBtn.addEventListener("keydown", (e)=>{
-      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openInvite(); }
+    // iPhone/Safari sometimes prefers touchend for “tap”
+    openBtn.addEventListener(
+      "touchend",
+      (e) => { e.preventDefault(); openInvite(); },
+      { passive: false }
+    );
+    openBtn.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openInvite();
+      }
     });
-    closeBtn.addEventListener("click", closeInvite);
+  }
 
-    // ===== TABS =====
-    const tabBtns = document.querySelectorAll(".tabBtn");
-    const panels = {
-      ctg: document.getElementById("ctg"),
-      dhk: document.getElementById("dhk")
-    };
+  // Bonus: tapping anywhere on the envelope also opens
+  if (envelope) {
+    envelope.addEventListener("click", openInvite);
+    envelope.addEventListener(
+      "touchend",
+      (e) => { e.preventDefault(); openInvite(); },
+      { passive: false }
+    );
+  }
 
-    tabBtns.forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        tabBtns.forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
+  if (closeBtn) closeBtn.addEventListener("click", closeInvite);
 
-        const tab = btn.dataset.tab;
-        Object.values(panels).forEach(p=>p.classList.remove("active"));
-        panels[tab].classList.add("active");
+  // ===== TABS =====
+  const tabBtns = document.querySelectorAll(".tabBtn");
+  const panels = {
+    ctg: document.getElementById("ctg"),
+    dhk: document.getElementById("dhk")
+  };
 
-        tabBtns.forEach(b=>b.setAttribute("aria-selected", b === btn ? "true" : "false"));
-      });
+  tabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      tabBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const tab = btn.dataset.tab;
+      Object.values(panels).forEach((p) => p && p.classList.remove("active"));
+      if (panels[tab]) panels[tab].classList.add("active");
+
+      tabBtns.forEach((b) =>
+        b.setAttribute("aria-selected", b === btn ? "true" : "false")
+      );
     });
+  });
 
-    // ===== COUNTDOWN =====
-    const dd = document.getElementById("dd");
-    const hh
+  // ===== COUNTDOWN =====
+  const dd = document.getElementById("dd");
+  const hh = document.getElementById("hh");
+  const mm = document.getElementById("mm");
+  const ss = document.getElementById("ss");
+
+  const target = new Date(targetISO).getTime();
+
+  function pad(n) { return String(n).padStart(2, "0"); }
+
+  function tick() {
+    const now = Date.now();
+    let diff = Math.max(0, target - now);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= days * (1000 * 60 * 60 * 24);
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff -= hours * (1000 * 60 * 60);
+    const mins = Math.floor(diff / (1000 * 60));
+    diff -= mins * (1000 * 60);
+    const secs = Math.floor(diff / 1000);
+
+    if (dd) dd.textContent = String(days);
+    if (hh) hh.textContent = pad(hours);
+    if (mm) mm.textContent = pad(mins);
+    if (ss) ss.textContent = pad(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+
+  // ===== SHARE BUTTON =====
+  const shareBtn = document.getElementById("shareBtn");
+  if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
+      const url = window.location.href;
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: "Rasheek & Radyah — Save the Date",
+            text: "Save the Date — 26.11.26",
+            url
+          });
+        } else {
+          await navigator.clipboard.writeText(url);
+          shareBtn.textContent = "Link Copied ✅";
+          setTimeout(() => (shareBtn.textContent = "Copy Share Link"), 1400);
+        }
+      } catch (e) {
+        // fallback copy
+        try {
+          await navigator.clipboard.writeText(url);
+          shareBtn.textContent = "Link Copied ✅";
+          setTimeout(() => (shareBtn.textContent = "Copy Share Link"), 1400);
+        } catch (_) {}
+      }
+    });
+  }
+
+  // ===== ICS DOWNLOAD =====
+  const icsBtn = document.getElementById("icsBtn");
+  if (icsBtn) {
+    icsBtn.addEventListener("click", () => {
+      // Create a simple calendar file for Akht/Nikah (all-day event).
+      // You can change SUMMARY / LOCATION anytime.
+      const dtStart = "20261126";
+      const dtEnd = "20261127";
+
+      const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//RasheekRadyah//SaveTheDate//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:${Date.now()}@razzy-create.github.io
+DTSTAMP:${new Date().toISOString().replace(/[-:]/g,"").split(".")[0]}Z
+DTSTART;VALUE=DATE:${dtStart}
+DTEND;VALUE=DATE:${dtEnd}
+SUMMARY:Rasheek & Radyah — Akht/Nikah
+DESCRIPTION:Save the Date — 26 Nov 2026. Chittagong (Bangladesh). More details will be shared closer to the dates.
+LOCATION:Chittagong, Bangladesh
+END:VEVENT
+END:VCALENDAR`;
+
+      const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "rasheek-radyah-save-the-date.ics";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+    });
+  }
+});
+</script>
