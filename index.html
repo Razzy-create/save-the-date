@@ -17,9 +17,7 @@
       --gold2:#a9842a;
       --shadow: 0 18px 60px rgba(15,18,22,.14);
       --shadow2: 0 10px 30px rgba(15,18,22,.10);
-      --radius: 20px;
       --radius2: 28px;
-      --stroke: rgba(31,35,40,.10);
     }
 
     *{box-sizing:border-box}
@@ -33,14 +31,12 @@
       -webkit-text-size-adjust: 100%;
     }
 
-    /* Prevent background scroll when modal is open */
     body.modal-open{
       overflow: hidden;
       height: 100%;
       touch-action: none;
     }
 
-    /* App wrapper */
     #app{
       min-height: 100svh;
       display:flex;
@@ -73,7 +69,7 @@
       border-radius: 40px;
     }
 
-    /* Envelope scene */
+    /* Envelope */
     .envelopeWrap{
       width:min(520px, 100%);
       display:flex;
@@ -314,7 +310,7 @@
       transform: translate(-50%, 12px);
     }
 
-    /* -------- MODAL (scroll-safe on iPhone / Messenger) -------- */
+    /* Modal */
     #modal[hidden]{ display:none !important; }
 
     .modalOverlay{
@@ -328,13 +324,12 @@
       background: rgba(0,0,0,.18);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
-      /* critical: don't put transform on overlay */
     }
 
     .modalCard{
       width: min(760px, 100%);
       max-height: calc(100dvh - 120px);
-      border-radius: 28px;
+      border-radius: var(--radius2);
       background: linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(255,253,246,.96) 100%);
       border: 1px solid rgba(31,35,40,.10);
       box-shadow: var(--shadow);
@@ -394,7 +389,6 @@
     .closeBtn:active{transform: scale(.98)}
     .closeBtn span{font-size: 14px; color: rgba(31,35,40,.72)}
 
-    /* THIS is the scroll container (flex:1 + overflow:auto) */
     .modalScroll{
       flex: 1 1 auto;
       overflow-y: auto;
@@ -402,7 +396,7 @@
       overscroll-behavior: contain;
       touch-action: pan-y;
       position: relative;
-      min-height: 0; /* critical for flex children to actually scroll */
+      min-height: 0;
     }
 
     .cardBody{
@@ -591,17 +585,6 @@
       font-size: 13px;
       line-height: 1.45;
     }
-
-    /* Tiny fallback line if JS breaks */
-    noscript{
-      display:block;
-      padding: 12px;
-      border: 1px solid rgba(31,35,40,.12);
-      border-radius: 14px;
-      background: rgba(255,255,255,.8);
-      max-width: 520px;
-      margin-top: 16px;
-    }
   </style>
 </head>
 
@@ -647,13 +630,10 @@
         </div>
       </div>
 
-      <noscript>
-        JavaScript is required for the envelope animation. If you’re opening this in an in-app browser, try Safari/Chrome.
-      </noscript>
     </div>
   </div>
 
-  <!-- Modal overlay: NOT visible / NOT in layout until open -->
+  <!-- Modal -->
   <div id="modal" hidden>
     <div class="modalOverlay" role="dialog" aria-modal="true" aria-label="Wedding invitation">
       <section class="modalCard" id="modalCard">
@@ -692,7 +672,7 @@
                             Chittagong • Mosque • Small gathering
                           </p>
                         </div>
-                        <div class="pill">CTG • Intimate</div>
+                        <div class="pill">CTG</div>
                       </div>
                     </div>
 
@@ -702,11 +682,10 @@
                           <p class="eventName">Holud</p>
                           <p class="eventMeta">
                             <strong>28 Nov 2026</strong><br/>
-                            Chittagong • Outdoor • Daytime<br/>
-                            Est. <strong>700</strong> guests
+                            Chittagong • Outdoor • Daytime
                           </p>
                         </div>
-                        <div class="pill">CTG • Day</div>
+                        <div class="pill">CTG</div>
                       </div>
                     </div>
 
@@ -716,17 +695,11 @@
                           <p class="eventName">Wedding</p>
                           <p class="eventMeta">
                             <strong>29 Nov 2026 (Night)</strong><br/>
-                            Chittagong • Hotel ballroom<br/>
-                            Est. <strong>1000</strong> guests
+                            Chittagong • Hotel ballroom
                           </p>
                         </div>
-                        <div class="pill">CTG • Night</div>
+                        <div class="pill">CTG</div>
                       </div>
-                    </div>
-
-                    <div class="footerNote">
-                      <strong>Lead (CTG):</strong> Bride’s dad<br/>
-                      <strong>Photography:</strong> Premium cinematic • Separate team for Chittagong
                     </div>
                   </div>
 
@@ -737,17 +710,11 @@
                           <p class="eventName">Walima</p>
                           <p class="eventMeta">
                             <strong>04 Dec 2026</strong><br/>
-                            Dhaka • Hotel ballroom<br/>
-                            Est. <strong>1000</strong> guests
+                            Dhaka • Hotel ballroom
                           </p>
                         </div>
                         <div class="pill">DHK</div>
                       </div>
-                    </div>
-
-                    <div class="footerNote">
-                      <strong>Lead (Dhaka):</strong> Groom’s dad<br/>
-                      <strong>Photography:</strong> Premium cinematic • Separate team for Dhaka
                     </div>
                   </div>
                 </div>
@@ -782,10 +749,7 @@
             </div>
 
             <div class="footerNote">
-              We can’t wait to celebrate with you. 💛<br/>
-              <span style="color:rgba(31,35,40,.62)">
-                Tip: If Messenger shows an old/blank version, open in Safari/Chrome or add <strong>?v=2</strong> to the link.
-              </span>
+              We can’t wait to celebrate with you. 💛
             </div>
 
           </div>
@@ -795,7 +759,6 @@
   </div>
 
   <script>
-    // ---------- Helpers ----------
     function pad2(n){ return String(n).padStart(2,'0'); }
 
     function toICSDateUTC(date){
@@ -829,7 +792,6 @@
       el.textContent = msg || "";
     }
 
-    // ---------- Main ----------
     document.addEventListener("DOMContentLoaded", () => {
       const envelope = document.getElementById("envelope");
       const openBtn = document.getElementById("openBtn");
@@ -851,13 +813,11 @@
       const countdownEl = document.getElementById("countdown");
       const countdownSub = document.getElementById("countdownSub");
 
-      // Nikah countdown target
-      const nikahDate = new Date("2026-11-26T18:00:00+06:00"); // Bangladesh offset
+      const nikahDate = new Date("2026-11-26T18:00:00+06:00");
 
       function updateCountdown(){
         const now = new Date();
         const diff = nikahDate.getTime() - now.getTime();
-
         if (diff <= 0){
           countdownEl.textContent = "It’s time 🎉";
           countdownSub.textContent = "Happy celebrations!";
@@ -867,14 +827,12 @@
         const days = Math.floor(totalSeconds / (3600*24));
         const hrs = Math.floor((totalSeconds % (3600*24)) / 3600);
         const mins = Math.floor((totalSeconds % 3600) / 60);
-
         countdownEl.textContent = `${days}d ${hrs}h ${mins}m`;
         countdownSub.textContent = "26 Nov 2026 • Chittagong";
       }
       updateCountdown();
       setInterval(updateCountdown, 30_000);
 
-      // Tabs
       function showCTG(){
         tabCTG.classList.add("active");
         tabCTG.setAttribute("aria-selected","true");
@@ -894,12 +852,9 @@
       tabCTG.addEventListener("click", showCTG);
       tabDHK.addEventListener("click", showDHK);
 
-      // Modal open/close (scroll-safe)
       function openModal(){
         modal.hidden = false;
         document.body.classList.add("modal-open");
-
-        // Let layout happen, then fade in
         requestAnimationFrame(() => {
           modalCard.classList.add("show");
           modalScroll.scrollTop = 0;
@@ -909,34 +864,22 @@
       function closeModal(){
         modalCard.classList.remove("show");
         document.body.classList.remove("modal-open");
-
-        // After fade out, remove from layout completely
-        setTimeout(() => {
-          modal.hidden = true;
-        }, 260);
+        setTimeout(() => { modal.hidden = true; }, 260);
       }
 
-      // Envelope open sequence
       function openInvite(){
         setStatus("");
         envelope.classList.add("opened");
-
-        // After letter animation, show modal
-        setTimeout(() => {
-          openModal();
-        }, 1050);
+        setTimeout(() => { openModal(); }, 1050);
       }
 
       openBtn.addEventListener("click", openInvite);
       closeBtn.addEventListener("click", closeModal);
 
-      // Close if user taps outside the card
       modal.addEventListener("click", (e) => {
-        // only if background overlay is clicked (not card)
         if (e.target === modal.querySelector(".modalOverlay")) closeModal();
       });
 
-      // Share
       shareBtn.addEventListener("click", async () => {
         const url = window.location.href;
         const data = {
@@ -944,7 +887,6 @@
           text: "Save the date! Celebrations in Chittagong & Dhaka — Nov–Dec 2026.",
           url
         };
-
         try{
           if (navigator.share){
             await navigator.share(data);
@@ -960,7 +902,6 @@
         }
       });
 
-      // Copy link
       copyBtn.addEventListener("click", async () => {
         try{
           if (navigator.clipboard){
@@ -974,7 +915,6 @@
         }
       });
 
-      // ICS (adds all events)
       icsBtn.addEventListener("click", () => {
         const events = [
           {
@@ -989,21 +929,21 @@
             start: new Date("2026-11-28T11:00:00+06:00"),
             end:   new Date("2026-11-28T15:00:00+06:00"),
             loc: "Chittagong (Outdoor, daytime)",
-            desc: "Holud (est. 700 guests)."
+            desc: "Holud."
           },
           {
             title: "Wedding — Rasheek & Radyah",
             start: new Date("2026-11-29T19:30:00+06:00"),
             end:   new Date("2026-11-29T23:30:00+06:00"),
             loc: "Chittagong (Hotel ballroom)",
-            desc: "Wedding night (est. 1000 guests)."
+            desc: "Wedding night."
           },
           {
             title: "Walima — Rasheek & Radyah",
             start: new Date("2026-12-04T19:30:00+06:00"),
             end:   new Date("2026-12-04T23:00:00+06:00"),
             loc: "Dhaka (Hotel ballroom)",
-            desc: "Walima (est. 1000 guests)."
+            desc: "Walima."
           }
         ];
 
@@ -1035,7 +975,6 @@
         setStatus("Calendar file downloaded ✅");
       });
 
-      // Escape closes (desktop)
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && !modal.hidden){
           closeModal();
