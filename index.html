@@ -2,554 +2,574 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Save the Date • Rasheek & Radyah • 26.11.26</title>
-  <meta name="description" content="Save the Date — Rasheek & Radyah — 26 November 2026" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rasheek & Radyah — Save the Date</title>
+  <meta name="theme-color" content="#f6f2ea" />
   <style>
     :root{
-      --bg:#0b0d12; --card:#121624; --muted:#9aa4b2; --text:#eef2ff;
-      --accent:#ffd18b; --accent2:#9ae6ff; --border:rgba(255,255,255,.10);
-      --shadow: 0 18px 40px rgba(0,0,0,.35);
-      --radius: 18px;
+      --bg1:#fbf8f1;
+      --bg2:#f3efe6;
+      --paper:#fffdf8;
+      --ink:#2b2b2b;
+      --muted:#6b6b6b;
+      --gold:#c9a86a;
+      --rose:#d9b6b1;
+      --shadow: 0 18px 60px rgba(20,20,20,.14);
+      --radius: 22px;
+      --ease: cubic-bezier(.2,.9,.2,1);
     }
+
     *{box-sizing:border-box}
     body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--text);
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--ink);
       background:
-        radial-gradient(900px 500px at 15% 10%, rgba(255,209,139,.20), transparent 55%),
-        radial-gradient(900px 500px at 90% 20%, rgba(154,230,255,.18), transparent 55%),
-        radial-gradient(800px 500px at 50% 95%, rgba(155,120,255,.14), transparent 60%),
-        var(--bg);
-      min-height:100vh;
+        radial-gradient(1200px 600px at 20% 10%, rgba(201,168,106,.14), transparent 55%),
+        radial-gradient(900px 500px at 90% 30%, rgba(217,182,177,.20), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100svh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
     }
-    a{color:inherit}
-    .wrap{max-width:980px; margin:0 auto; padding:28px 18px 70px;}
-    header{
-      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      padding:16px 2px 10px;
+
+    .wrap{
+      width:min(980px, 100%);
+      display:grid;
+      gap:18px;
+      justify-items:center;
     }
-    .brand{display:flex; align-items:center; gap:12px;}
-    .monogram{
-      width:44px; height:44px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(255,209,139,.22), rgba(154,230,255,.18));
-      border:1px solid var(--border);
+
+    .hint{
+      font-size:14px;
+      color:var(--muted);
+      text-align:center;
+      line-height:1.4;
+    }
+
+    /* Stage holds envelope + card */
+    .stage{
+      width:min(520px, 100%);
+      position:relative;
+      height: 640px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      perspective: 1200px;
+    }
+
+    /* INVITE CARD */
+    .card{
+      position:absolute;
+      width: min(520px, 100%);
+      max-width:520px;
+      height: 560px;
+      background: var(--paper);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      display:grid; place-items:center;
-      font-weight:800;
+      padding: 26px 22px 18px;
+      transform: translateY(42px) scale(.98);
+      opacity:0;
+      pointer-events:none;
+      transition: all 700ms var(--ease);
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.05);
     }
-    .brand h1{margin:0; font-size:16px; letter-spacing:.4px}
-    .brand p{margin:2px 0 0; color:var(--muted); font-size:12px}
-    .top-actions{display:flex; gap:10px; flex-wrap:wrap}
-    button{
-      background: rgba(255,255,255,.06);
-      border:1px solid var(--border);
-      color:var(--text);
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-80px -80px auto auto;
+      width:240px;
+      height:240px;
+      background: radial-gradient(circle at 30% 30%, rgba(201,168,106,.22), transparent 60%);
+      transform: rotate(12deg);
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:auto auto -110px -110px;
+      width:260px;
+      height:260px;
+      background: radial-gradient(circle at 55% 45%, rgba(217,182,177,.26), transparent 62%);
+      transform: rotate(-10deg);
+    }
+
+    .cardInner{
+      position:relative;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .topline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .pill{
+      font-size:12px;
+      color:#3b3b3b;
+      background: rgba(201,168,106,.18);
+      border: 1px solid rgba(201,168,106,.35);
+      padding:8px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .mono{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:650;
+      letter-spacing:.2px;
+    }
+    .monogram{
+      width:40px;height:40px;border-radius:50%;
+      display:grid;place-items:center;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #f1eadc);
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 8px 18px rgba(0,0,0,.08);
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      font-weight:700;
+      color:#3a2f1e;
+    }
+
+    h1{
+      margin: 6px 0 2px;
+      font-size: 28px;
+      text-align:center;
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      letter-spacing:.3px;
+    }
+    .sub{
+      text-align:center;
+      color:var(--muted);
+      margin:0 0 8px;
+      font-size:14px;
+    }
+
+    .countdown{
+      display:grid;
+      grid-template-columns: repeat(4,1fr);
+      gap:10px;
+      margin-top:6px;
+    }
+    .cd{
+      background: rgba(0,0,0,.03);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:16px;
+      padding:10px 8px;
+      text-align:center;
+    }
+    .cd b{display:block;font-size:20px}
+    .cd span{font-size:12px;color:var(--muted)}
+
+    .tabs{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin-top:6px;
+      flex-wrap:wrap;
+    }
+    .tabBtn{
+      border:none;
       padding:10px 12px;
       border-radius:999px;
-      cursor:pointer;
-      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      background: rgba(0,0,0,.04);
+      border: 1px solid rgba(0,0,0,.06);
+      color: #2e2e2e;
       font-weight:600;
-      font-size:13px;
+      cursor:pointer;
+      transition: transform 120ms ease, background 200ms ease;
     }
-    button:hover{background: rgba(255,255,255,.09)}
-    button:active{transform: scale(.98)}
-    .hero{
-      margin-top:14px;
-      padding:26px 20px;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid var(--border);
-      box-shadow: var(--shadow);
+    .tabBtn:active{transform:scale(.98)}
+    .tabBtn.active{
+      background: rgba(201,168,106,.22);
+      border-color: rgba(201,168,106,.42);
+    }
+
+    .panel{
+      margin-top:10px;
+      display:none;
+      gap:12px;
+    }
+    .panel.active{display:grid}
+
+    .section{
+      background: rgba(255,255,255,.55);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: 18px;
+      padding: 14px 14px 12px;
+    }
+    .section h3{
+      margin:0 0 8px;
+      font-size:14px;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+      color:#3a3a3a;
+    }
+    .list{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .item{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      margin-top:6px;
+      background: linear-gradient(135deg, var(--gold), var(--rose));
+      box-shadow: 0 6px 14px rgba(0,0,0,.12);
+      flex:0 0 10px;
+    }
+    .item b{display:block}
+    .item small{display:block;color:var(--muted);line-height:1.35}
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top:auto;
+      padding-top:10px;
+    }
+    .btn{
+      border:none;
+      cursor:pointer;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:650;
+      background: rgba(0,0,0,.06);
+      border: 1px solid rgba(0,0,0,.08);
+      color:#222;
+      transition: transform 120ms ease, background 180ms ease;
+    }
+    .btn:active{transform:scale(.98)}
+    .btn.primary{
+      background: rgba(201,168,106,.28);
+      border-color: rgba(201,168,106,.45);
+    }
+
+    .tiny{
+      text-align:center;
+      font-size:12px;
+      color:var(--muted);
+      margin: 8px 0 0;
+    }
+
+    /* ENVELOPE */
+    .envelope{
+      width:min(520px, 100%);
+      max-width:520px;
+      height: 420px;
       position:relative;
+      filter: drop-shadow(0 18px 40px rgba(0,0,0,.14));
+      transform: translateY(20px);
+      transition: transform 700ms var(--ease), opacity 700ms var(--ease);
+    }
+
+    .envBody{
+      position:absolute;
+      inset:0;
+      border-radius: 26px;
+      background:
+        linear-gradient(180deg, #ffffff, #f3ecdf);
+      border: 1px solid rgba(0,0,0,.08);
       overflow:hidden;
     }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-120px -120px auto auto;
-      width:260px; height:260px; border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,209,139,.45), rgba(255,209,139,0) 60%);
-      opacity:.85;
+    /* bottom flap */
+    .flapBottom{
+      position:absolute;
+      left:0;right:0;bottom:-1px;height:56%;
+      background: linear-gradient(180deg, #f7f1e6, #efe5d5);
+      clip-path: polygon(0 100%, 50% 18%, 100% 100%, 100% 0, 0 0);
+      border-top: 1px solid rgba(0,0,0,.06);
     }
-    .hero:after{
-      content:"";
-      position:absolute; inset:auto auto -140px -140px;
-      width:300px; height:300px; border-radius:50%;
-      background: radial-gradient(circle at 40% 40%, rgba(154,230,255,.35), rgba(154,230,255,0) 60%);
-      opacity:.8;
+    /* left & right folds */
+    .foldL, .foldR{
+      position:absolute; top:0; bottom:0; width:55%;
+      background: linear-gradient(180deg, #fffaf0, #f0e6d6);
+      opacity:.9;
     }
-    .hero-grid{display:grid; gap:18px; grid-template-columns: 1.2fr .8fr; position:relative}
-    @media (max-width:860px){ .hero-grid{grid-template-columns:1fr} }
-    .headline{display:flex; flex-direction:column; gap:10px;}
-    .kicker{
-      display:inline-flex; gap:8px; align-items:center; width:max-content;
-      padding:7px 10px; border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.22);
-      color: var(--muted);
-      font-size:12px;
+    .foldL{
+      left:-1px;
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      border-right: 1px solid rgba(0,0,0,.06);
     }
-    .kicker span.dot{
-      width:8px;height:8px;border-radius:999px;background: #ffd18b;
-      box-shadow: 0 0 0 4px rgba(255,209,139,.12);
+    .foldR{
+      right:-1px;
+      clip-path: polygon(100% 0, 100% 100%, 0 50%);
+      border-left: 1px solid rgba(0,0,0,.06);
     }
-    h2{margin:0; font-size:38px; letter-spacing:.2px; line-height:1.05;}
-    @media (max-width:480px){ h2{font-size:32px} }
-    .sub{
-      margin:0; color:var(--muted); font-size:14px; line-height:1.5;
-      max-width:54ch;
+    /* top flap (opens) */
+    .flapTop{
+      position:absolute;
+      left:-1px; right:-1px; top:-1px; height:60%;
+      background: linear-gradient(180deg, #fbf6ec, #f1e6d6);
+      clip-path: polygon(0 0, 100% 0, 50% 88%);
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform 900ms var(--ease);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      backface-visibility:hidden;
     }
-    .date-line{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
-    .date-big{
-      font-size:18px; font-weight:900;
-      padding:10px 12px;
-      border-radius:14px;
-      background: rgba(0,0,0,.20);
-      border:1px solid var(--border);
-      width:max-content;
+
+    /* seal button */
+    .seal{
+      position:absolute;
+      left:50%; top:54%;
+      transform: translate(-50%,-50%);
+      width:92px;height:92px;border-radius:50%;
+      border:1px solid rgba(0,0,0,.10);
+      background:
+        radial-gradient(circle at 30% 30%, #fff, #f0e5d3 58%, #e7d6b7);
+      box-shadow: 0 16px 30px rgba(0,0,0,.14);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      user-select:none;
+      z-index:4;
+      transition: transform 180ms ease, opacity 500ms var(--ease);
     }
-    .tiny{font-size:12px; color:var(--muted);}
-    .countdown{
-      display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; align-content:start;
+    .seal:active{transform:translate(-50%,-50%) scale(.98)}
+    .seal span{
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      font-weight: 800;
+      letter-spacing:.6px;
+      color:#3a2f1e;
+      font-size:22px;
     }
-    .unit{
-      padding:12px 10px; border-radius:14px;
-      background: rgba(0,0,0,.20); border:1px solid var(--border); text-align:center;
+    .seal small{
+      display:block;
+      margin-top:2px;
+      font-size:10px;
+      letter-spacing:.8px;
+      color: rgba(58,47,30,.75);
+      text-transform:uppercase;
+      text-align:center;
     }
-    .num{font-size:22px; font-weight:900}
-    .lab{font-size:11px; letter-spacing:.6px; text-transform:uppercase; color:var(--muted)}
-    .section{margin-top:18px; display:grid; grid-template-columns: 1fr 1fr; gap:14px;}
-    @media (max-width:860px){ .section{grid-template-columns:1fr} }
-    .card{
-      padding:16px; border-radius:18px;
-      background: rgba(255,255,255,.05); border:1px solid var(--border);
-      box-shadow: 0 10px 26px rgba(0,0,0,.22);
+
+    /* little “paper” peek behind flap */
+    .peek{
+      position:absolute;
+      left:50%;
+      top:18%;
+      transform: translateX(-50%);
+      width:86%;
+      height: 64%;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fffdf8, #f6efe2);
+      border: 1px solid rgba(0,0,0,.06);
+      z-index:1;
     }
-    .card h3{margin:0 0 8px; font-size:16px}
-    .muted{color:var(--muted); font-size:13px; line-height:1.5}
-    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
-    .chip{
-      font-size:12px; padding:7px 10px; border-radius:999px;
-      border:1px solid var(--border); background: rgba(0,0,0,.18);
-      color: rgba(238,242,255,.92);
+    .peekLine{
+      position:absolute;
+      inset:22px 18px auto 18px;
+      height:2px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,106,.65), transparent);
     }
-    .tabs{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 0}
-    .tab{
-      padding:9px 10px; border-radius:999px; border:1px solid var(--border);
-      background: rgba(0,0,0,.18); cursor:pointer; font-weight:800; font-size:12px; user-select:none;
+
+    /* OPEN STATE */
+    .open .flapTop{ transform: rotateX(-165deg); }
+    .open .seal{ opacity:0; pointer-events:none; }
+    .open .envelope{
+      transform: translateY(55px) scale(.96);
+      opacity:.25;
     }
-    .tab.active{
-      background: linear-gradient(135deg, rgba(255,209,139,.18), rgba(154,230,255,.14));
-      border-color: rgba(255,255,255,.16);
+    .open .card{
+      transform: translateY(-20px) scale(1);
+      opacity:1;
+      pointer-events:auto;
     }
-    .event-row{display:grid; gap:10px; margin-top:12px}
-    .event{
-      padding:12px; border-radius:16px; border:1px solid var(--border);
-      background: rgba(0,0,0,.18);
-    }
-    .event-top{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center}
-    .event strong{font-size:14px}
-    .event small{color:var(--muted)}
-    .event-actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
-    .event-actions button{padding:9px 10px; font-size:12px}
-    .grid2{display:grid; gap:12px; grid-template-columns: 1fr 1fr}
-    @media (max-width:640px){ .grid2{grid-template-columns:1fr} }
-    input, select, textarea{
-      width:100%; border-radius:14px; border:1px solid var(--border);
-      background: rgba(0,0,0,.22); color:var(--text);
-      padding:11px 12px; font-size:14px; outline:none;
-    }
-    textarea{min-height:92px; resize:vertical}
-    label{display:block; font-size:12px; color:var(--muted); margin:6px 0}
-    .row{margin-top:10px}
-    .success{
-      margin-top:10px; padding:10px 12px; border-radius:14px;
-      background: rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.22);
-      color: rgba(220,252,231,.95); font-size:13px; display:none;
-    }
-    footer{
-      margin-top:18px; color:var(--muted); font-size:12px;
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      padding:10px 2px 0;
-    }
-    .toast{
-      position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%);
-      background: rgba(10,12,18,.85); border:1px solid var(--border);
-      color: var(--text); padding: 10px 12px; border-radius: 999px;
-      box-shadow: var(--shadow); font-size: 13px; display:none; z-index: 999;
-      backdrop-filter: blur(8px);
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .flapTop, .card, .envelope{transition:none !important}
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="monogram" id="monogram">R♥R</div>
-        <div>
-          <h1 id="names">Rasheek & Radyah</h1>
-          <p id="tagline">Save the Date • 26 November 2026</p>
-        </div>
-      </div>
-      <div class="top-actions">
-        <button id="editBtn" title="Update names & details">Customize</button>
-        <button id="shareBtn" title="Copy link">Share</button>
-      </div>
-    </header>
+  <div class="wrap" id="app">
+    <div class="hint" id="hint">
+      <strong>Tap the seal to open your invitation.</strong><br/>
+      Light theme • Mobile friendly • Shareable via GitHub Pages
+    </div>
 
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="headline">
-          <div class="kicker"><span class="dot"></span><span id="kickerText">Wedding celebration begins</span></div>
-          <h2 id="heroTitle">We’re getting married</h2>
-          <p class="sub" id="heroSub">Join us as we begin our forever. Save the date — details to follow.</p>
-
-          <div class="date-line">
-            <div class="date-big" id="dateBig">26.11.26</div>
-            <div>
-              <div class="tiny" id="timezoneLine">Timezone: Asia/Dhaka (UTC+6)</div>
-              <div class="tiny" id="locationLine">Chittagong • Dhaka</div>
-            </div>
-          </div>
-
-          <div class="chips">
-            <span class="chip">Akht / Nikah • Mosque</span>
-            <span class="chip">Holud • Outdoor Day</span>
-            <span class="chip">Wedding • Hotel Ballroom</span>
-            <span class="chip">Walima • Dhaka</span>
-          </div>
+    <div class="stage">
+      <!-- Envelope -->
+      <div class="envelope" aria-label="Envelope invitation">
+        <div class="envBody">
+          <div class="peek" aria-hidden="true"><div class="peekLine"></div></div>
+          <div class="foldL" aria-hidden="true"></div>
+          <div class="foldR" aria-hidden="true"></div>
+          <div class="flapBottom" aria-hidden="true"></div>
+          <div class="flapTop" aria-hidden="true"></div>
         </div>
 
-        <div class="countdown" aria-label="Countdown">
-          <div class="unit"><div class="num" id="d">—</div><div class="lab">Days</div></div>
-          <div class="unit"><div class="num" id="h">—</div><div class="lab">Hours</div></div>
-          <div class="unit"><div class="num" id="m">—</div><div class="lab">Minutes</div></div>
-          <div class="unit"><div class="num" id="s">—</div><div class="lab">Seconds</div></div>
+        <div class="seal" id="openBtn" role="button" tabindex="0" aria-label="Open invitation">
+          <div style="text-align:center;line-height:1.05">
+            <span>R♥R</span>
+            <small>Tap to open</small>
+          </div>
         </div>
       </div>
-    </section>
 
-    <section class="section">
-      <div class="card">
-        <h3>Events</h3>
-        <p class="muted">Tap a city to preview the schedule. Add each event to your calendar.</p>
+      <!-- Invite Card -->
+      <div class="card" id="card" aria-live="polite">
+        <div class="cardInner">
+          <div class="topline">
+            <div class="mono">
+              <div class="monogram">R♥R</div>
+              <div>
+                <div style="font-weight:800;font-size:14px;line-height:1.1">Rasheek & Radyah</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.1">Bangladesh • Nov–Dec 2026</div>
+              </div>
+            </div>
+            <div class="pill">Save the Date — 26.11.26</div>
+          </div>
 
-        <div class="tabs" role="tablist" aria-label="Event tabs">
-          <div class="tab active" data-tab="ctg" role="tab" aria-selected="true">Chittagong</div>
-          <div class="tab" data-tab="dhk" role="tab" aria-selected="false">Dhaka</div>
+          <h1>You’re Invited</h1>
+          <p class="sub">An exclusive invitation for our wedding celebrations</p>
+
+          <div class="countdown" id="countdown">
+            <div class="cd"><b id="dd">—</b><span>Days</span></div>
+            <div class="cd"><b id="hh">—</b><span>Hours</span></div>
+            <div class="cd"><b id="mm">—</b><span>Minutes</span></div>
+            <div class="cd"><b id="ss">—</b><span>Seconds</span></div>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Event city tabs">
+            <button class="tabBtn active" data-tab="ctg" role="tab" aria-selected="true">Chittagong</button>
+            <button class="tabBtn" data-tab="dhk" role="tab" aria-selected="false">Dhaka</button>
+          </div>
+
+          <div class="panel active" id="ctg" role="tabpanel" aria-label="Chittagong events">
+            <div class="section">
+              <h3>Events • Chittagong</h3>
+              <ul class="list">
+                <li class="item">
+                  <div class="dot"></div>
+                  <div>
+                    <b>Akht / Nikah — 26 Nov 2026</b>
+                    <small>Small program at a mosque • Chittagong</small>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="dot"></div>
+                  <div>
+                    <b>Holud — 28 Nov 2026 (Day)</b>
+                    <small>Outdoor daytime celebration • Estimated guests: 700</small>
+                  </div>
+                </li>
+                <li class="item">
+                  <div class="dot"></div>
+                  <div>
+                    <b>Wedding — 29 Nov 2026 (Night)</b>
+                    <small>Hotel ballroom reception • Estimated guests: 1000</small>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Notes</h3>
+              <ul class="list">
+                <li class="item"><div class="dot"></div><div><b>Photography</b><small>Premium cinematic coverage • Separate teams for CTG and Dhaka</small></div></li>
+                <li class="item"><div class="dot"></div><div><b>Planning lead</b><small>Chittagong decisions led by Bride’s dad</small></div></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel" id="dhk" role="tabpanel" aria-label="Dhaka events">
+            <div class="section">
+              <h3>Event • Dhaka</h3>
+              <ul class="list">
+                <li class="item">
+                  <div class="dot"></div>
+                  <div>
+                    <b>Walima — 04 Dec 2026</b>
+                    <small>Hotel ballroom • Estimated guests: 1000</small>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>Notes</h3>
+              <ul class="list">
+                <li class="item"><div class="dot"></div><div><b>Planning lead</b><small>Dhaka decisions led by Groom’s dad</small></div></li>
+                <li class="item"><div class="dot"></div><div><b>More details</b><small>Full schedule + venues will be shared closer to the dates</small></div></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="icsBtn">Add to Calendar (.ics)</button>
+            <button class="btn" id="shareBtn">Copy Share Link</button>
+            <button class="btn" id="closeBtn">Close</button>
+          </div>
+
+          <p class="tiny">Tip: host this on GitHub Pages to share with everyone.</p>
         </div>
-
-        <div class="event-row" id="events"></div>
       </div>
-
-      <div class="card">
-        <h3>RSVP (quick)</h3>
-        <p class="muted">This saves on the guest’s device. If you want, I can switch this to a Google Form → Google Sheet RSVP.</p>
-
-        <form id="rsvpForm">
-          <div class="grid2">
-            <div>
-              <label for="guestName">Your name</label>
-              <input id="guestName" required placeholder="e.g., Md. Rahman" />
-            </div>
-            <div>
-              <label for="guestCount">Guests</label>
-              <select id="guestCount">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5+">5+</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="grid2 row">
-            <div>
-              <label for="cityPref">Likely attending</label>
-              <select id="cityPref">
-                <option value="Chittagong (Akht/Holud/Wedding)">Chittagong (Akht/Holud/Wedding)</option>
-                <option value="Dhaka (Walima)">Dhaka (Walima)</option>
-                <option value="Not sure yet">Not sure yet</option>
-              </select>
-            </div>
-            <div>
-              <label for="contact">WhatsApp / Email (optional)</label>
-              <input id="contact" placeholder="+8801… or email" />
-            </div>
-          </div>
-
-          <div class="row">
-            <label for="note">Note (diet, accessibility, etc.)</label>
-            <textarea id="note" placeholder="Anything we should know?"></textarea>
-          </div>
-
-          <div class="row" style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button type="submit">Save RSVP</button>
-            <button type="button" id="viewRsvpBtn">View saved</button>
-            <button type="button" id="clearRsvpBtn">Clear</button>
-          </div>
-
-          <div class="success" id="successBox">Saved! 💛 We’ll share full details soon.</div>
-        </form>
-      </div>
-    </section>
-
-    <footer>
-      <div>Made with ❤️ for Rasheek & Radyah</div>
-      <div>Save the Date: 26.11.26</div>
-    </footer>
+    </div>
   </div>
 
-  <div class="toast" id="toast"></div>
-
   <script>
-    const CONFIG = {
-      brideName: "Radyah",
-      groomName: "Rasheek",
-      monogram: "R♥R",
-      mainDateISO: "2026-11-26T00:00:00+06:00",
-      timezoneLabel: "Asia/Dhaka (UTC+6)",
-      locationsLine: "Chittagong • Dhaka",
-      headline: "We’re getting married",
-      subheadline: "Join us as we begin our forever. Save the date — details to follow.",
-      kicker: "Wedding celebration begins",
-      events: {
-        ctg: [
-          { title: "Akht / Nikah (Mosque)", date: "2026-11-26", time: "TBD", location: "Chittagong", notes: "Small program" },
-          { title: "Holud (Outdoor Day)", date: "2026-11-27", time: "TBD", location: "Chittagong", notes: "Day celebration" },
-          { title: "Wedding (Hotel Ballroom)", date: "2026-11-28", time: "Night", location: "Chittagong", notes: "Reception night" },
-        ],
-        dhk: [
-          { title: "Walima (Hotel Ballroom)", date: "2026-12-04", time: "TBD", location: "Dhaka", notes: "Reception" },
-        ]
-      }
+    // ===== SETTINGS =====
+    // Countdown target: Akht/Nikah date (26 Nov 2026) at 6:00 PM Dhaka time (UTC+6)
+    // You can change the hour if you want.
+    const targetISO = "2026-11-26T18:00:00+06:00";
+
+    // ===== OPEN/CLOSE ENVELOPE =====
+    const app = document.getElementById("app");
+    const openBtn = document.getElementById("openBtn");
+    const closeBtn = document.getElementById("closeBtn");
+
+    function openInvite(){
+      app.classList.add("open");
+      // optional small vibration on mobile
+      if (navigator.vibrate) navigator.vibrate(20);
+    }
+    function closeInvite(){
+      app.classList.remove("open");
+    }
+
+    openBtn.addEventListener("click", openInvite);
+    openBtn.addEventListener("keydown", (e)=>{
+      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openInvite(); }
+    });
+    closeBtn.addEventListener("click", closeInvite);
+
+    // ===== TABS =====
+    const tabBtns = document.querySelectorAll(".tabBtn");
+    const panels = {
+      ctg: document.getElementById("ctg"),
+      dhk: document.getElementById("dhk")
     };
 
-    const $ = (id) => document.getElementById(id);
-    const toast = (msg) => {
-      const t = $("toast");
-      t.textContent = msg;
-      t.style.display = "block";
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => (t.style.display = "none"), 2200);
-    };
+    tabBtns.forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        tabBtns.forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
 
-    function applyConfigToUI() {
-      $("names").textContent = `${CONFIG.groomName} & ${CONFIG.brideName}`;
-      $("monogram").textContent = CONFIG.monogram;
-      $("tagline").textContent = `Save the Date • 26 November 2026`;
-      $("heroTitle").textContent = CONFIG.headline;
-      $("heroSub").textContent = CONFIG.subheadline;
-      $("kickerText").textContent = CONFIG.kicker;
-      $("timezoneLine").textContent = `Timezone: ${CONFIG.timezoneLabel}`;
-      $("locationLine").textContent = CONFIG.locationsLine;
-      $("dateBig").textContent = "26.11.26";
-    }
+        const tab = btn.dataset.tab;
+        Object.values(panels).forEach(p=>p.classList.remove("active"));
+        panels[tab].classList.add("active");
 
-    function startCountdown() {
-      const target = new Date(CONFIG.mainDateISO).getTime();
-      function tick() {
-        const now = Date.now();
-        let diff = Math.max(0, target - now);
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        diff -= days * (1000 * 60 * 60 * 24);
-        const hrs = Math.floor(diff / (1000 * 60 * 60));
-        diff -= hrs * (1000 * 60 * 60);
-        const mins = Math.floor(diff / (1000 * 60));
-        diff -= mins * (1000 * 60);
-        const secs = Math.floor(diff / 1000);
-
-        $("d").textContent = String(days);
-        $("h").textContent = String(hrs).padStart(2, "0");
-        $("m").textContent = String(mins).padStart(2, "0");
-        $("s").textContent = String(secs).padStart(2, "0");
-      }
-      tick();
-      setInterval(tick, 1000);
-    }
-
-    let activeTab = "ctg";
-    function renderEvents() {
-      const list = CONFIG.events[activeTab] || [];
-      const host = $("events");
-      host.innerHTML = "";
-
-      list.forEach((e) => {
-        const el = document.createElement("div");
-        el.className = "event";
-        const dateLabel = prettyDate(e.date);
-
-        el.innerHTML = `
-          <div class="event-top">
-            <div>
-              <strong>${escapeHtml(e.title)}</strong><br />
-              <small>${escapeHtml(dateLabel)} • ${escapeHtml(e.time)} • ${escapeHtml(e.location)}</small>
-            </div>
-            <small>${escapeHtml(e.notes || "")}</small>
-          </div>
-          <div class="event-actions">
-            <button type="button" data-ics="${escapeAttr(buildICS(e))}">Add to Calendar (.ics)</button>
-            <button type="button" data-copy="${escapeAttr(buildEventText(e))}">Copy details</button>
-          </div>
-        `;
-
-        el.querySelectorAll("button")[0].addEventListener("click", (ev) => {
-          const ics = ev.currentTarget.getAttribute("data-ics");
-          downloadText(`${slug(e.title)}-${e.date}.ics`, ics);
-          toast("Calendar file downloaded ✅");
-        });
-
-        el.querySelectorAll("button")[1].addEventListener("click", (ev) => {
-          const txt = ev.currentTarget.getAttribute("data-copy");
-          navigator.clipboard.writeText(txt).then(() => toast("Copied ✅"));
-        });
-
-        host.appendChild(el);
-      });
-    }
-
-    function prettyDate(yyyy_mm_dd){
-      const [y,m,d] = yyyy_mm_dd.split("-").map(Number);
-      const dt = new Date(Date.UTC(y, m-1, d));
-      return dt.toLocaleDateString(undefined, { weekday:"short", year:"numeric", month:"long", day:"numeric" });
-    }
-
-    function buildEventText(e){
-      return `${e.title}\nDate: ${e.date}\nTime: ${e.time}\nLocation: ${e.location}\nNotes: ${e.notes || ""}\n\nSave the Date: 26.11.26`;
-    }
-
-    function buildICS(e){
-      const start = `${e.date.replaceAll("-","")}T180000`;
-      const end   = `${e.date.replaceAll("-","")}T210000`;
-      const uid = `${Date.now()}-${Math.random().toString(16).slice(2)}@rasheek-radyah`;
-      const dtstamp = toICSStamp(new Date());
-
-      return [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//SaveTheDate//EN",
-        "CALSCALE:GREGORIAN",
-        "METHOD:PUBLISH",
-        "BEGIN:VEVENT",
-        `UID:${uid}`,
-        `DTSTAMP:${dtstamp}`,
-        `SUMMARY:${escapeICS(e.title)}`,
-        `DTSTART:${start}`,
-        `DTEND:${end}`,
-        `LOCATION:${escapeICS(e.location)}`,
-        `DESCRIPTION:${escapeICS(e.notes || "Details to follow.")}`,
-        "END:VEVENT",
-        "END:VCALENDAR"
-      ].join("\\r\\n");
-    }
-
-    function toICSStamp(d){
-      const pad = (n) => String(n).padStart(2,"0");
-      return `${d.getUTCFullYear()}${pad(d.getUTCMonth()+1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}Z`;
-    }
-
-    function downloadText(filename, text){
-      const blob = new Blob([text], {type:"text/plain"});
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = filename;
-      a.click();
-      setTimeout(() => URL.revokeObjectURL(a.href), 3000);
-    }
-
-    // RSVP local save
-    function loadRSVP(){ try { return JSON.parse(localStorage.getItem("std_rsvp") || "null"); } catch { return null; } }
-    function saveRSVP(data){ localStorage.setItem("std_rsvp", JSON.stringify(data)); }
-    function clearRSVP(){ localStorage.removeItem("std_rsvp"); }
-
-    $("rsvpForm").addEventListener("submit", (ev) => {
-      ev.preventDefault();
-      const data = {
-        name: $("guestName").value.trim(),
-        count: $("guestCount").value,
-        attending: $("cityPref").value,
-        contact: $("contact").value.trim(),
-        note: $("note").value.trim(),
-        savedAt: new Date().toISOString()
-      };
-      if (!data.name) return;
-      saveRSVP(data);
-      $("successBox").style.display = "block";
-      toast("RSVP saved ✅");
-      setTimeout(() => ($("successBox").style.display = "none"), 2600);
-      ev.target.reset();
-    });
-
-    $("viewRsvpBtn").addEventListener("click", () => {
-      const r = loadRSVP();
-      if (!r) return toast("No saved RSVP yet");
-      alert(
-        `Saved RSVP\n\nName: ${r.name}\nGuests: ${r.count}\nLikely attending: ${r.attending}\nContact: ${r.contact || "-"}\nNote: ${r.note || "-"}\nSaved: ${new Date(r.savedAt).toLocaleString()}`
-      );
-    });
-
-    $("clearRsvpBtn").addEventListener("click", () => {
-      clearRSVP();
-      toast("Saved RSVP cleared");
-    });
-
-    // Tabs
-    document.querySelectorAll(".tab").forEach((t) => {
-      t.addEventListener("click", () => {
-        document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
-        t.classList.add("active");
-        activeTab = t.dataset.tab;
-        renderEvents();
+        tabBtns.forEach(b=>b.setAttribute("aria-selected", b === btn ? "true" : "false"));
       });
     });
 
-    // Customize
-    $("editBtn").addEventListener("click", () => {
-      const groom = prompt("Groom name:", CONFIG.groomName) ?? CONFIG.groomName;
-      const bride = prompt("Bride name:", CONFIG.brideName) ?? CONFIG.brideName;
-      const mono = prompt("Monogram (e.g., R♥R):", CONFIG.monogram) ?? CONFIG.monogram;
-      const loc = prompt("Locations line:", CONFIG.locationsLine) ?? CONFIG.locationsLine;
-
-      CONFIG.groomName = groom.trim() || CONFIG.groomName;
-      CONFIG.brideName = bride.trim() || CONFIG.brideName;
-      CONFIG.monogram = mono.trim() || CONFIG.monogram;
-      CONFIG.locationsLine = loc.trim() || CONFIG.locationsLine;
-
-      applyConfigToUI();
-      toast("Updated ✅");
-    });
-
-    // Share
-    $("shareBtn").addEventListener("click", async () => {
-      const url = location.href;
-      try{
-        await navigator.clipboard.writeText(url);
-        toast("Link copied ✅");
-      } catch {
-        toast("Copy failed — select and copy the URL");
-      }
-    });
-
-    // Escape helpers
-    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, (c)=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c])); }
-    function escapeAttr(s){ return String(s).replace(/"/g, "&quot;"); }
-    function escapeICS(s){
-      return String(s)
-        .replaceAll("\\\\", "\\\\\\\\")
-        .replaceAll(";", "\\;")
-        .replaceAll(",", "\\,")
-        .replaceAll("\n", "\\n");
-    }
-    function slug(s){
-      return String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"").slice(0,40);
-    }
-
-    // Boot
-    applyConfigToUI();
-    startCountdown();
-    renderEvents();
-  </script>
-</body>
-</html>
-
+    // ===== COUNTDOWN =====
+    const dd = document.getElementById("dd");
+    const hh
