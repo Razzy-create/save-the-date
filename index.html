@@ -4,446 +4,271 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f7f3ea">
-<title>RSVP — Rasheek & Radyah</title>
+<title>Save the Date — Rasheek & Radyah</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --gold: #b8965a;
-    --gold-light: #d4b07a;
-    --cream: #f7f3ea;
-    --cream-dark: #ede8db;
-    --ink: #2c2414;
-    --ink-soft: #5a4e3a;
-    --ink-muted: #8a7a60;
-    --white: #ffffff;
+    --gold: #b8965a; --gold-light: #d4b07a; --cream: #f7f3ea;
+    --cream-dark: #ede8db; --ink: #2c2414; --ink-soft: #5a4e3a;
+    --ink-muted: #8a7a60; --white: #ffffff;
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Jost', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 3rem 1.25rem 4rem;
-  }
-
-  /* ── HEADER ── */
-  .rsvp-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-  .rsvp-mono {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--gold);
-    letter-spacing: 0.04em;
-    margin-bottom: 0.75rem;
-  }
-  .rsvp-eyebrow {
-    font-size: 0.62rem;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.6rem;
-  }
-  .rsvp-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.4rem, 7vw, 3.4rem);
-    font-weight: 300;
-    color: var(--ink);
-    line-height: 1;
-    margin-bottom: 0.4rem;
-  }
-  .rsvp-amp { font-style: italic; color: var(--gold); }
-  .rsvp-rule {
-    width: 40px;
-    height: 1px;
-    background: var(--gold-light);
-    margin: 0.8rem auto;
-  }
-  .rsvp-sub {
-    font-size: 0.72rem;
-    color: var(--ink-muted);
-    letter-spacing: 0.1em;
-  }
-
-  /* ── CARD ── */
-  .rsvp-card {
-    background: var(--white);
-    border: 1px solid var(--cream-dark);
-    border-radius: 16px;
-    padding: 2.25rem 2rem;
-    width: 100%;
-    max-width: 540px;
-  }
-
-  /* ── FIELDS ── */
-  .field { margin-bottom: 1.5rem; }
-  .field label {
-    display: block;
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin-bottom: 0.5rem;
-  }
-  .field input[type=text],
-  .field input[type=number] {
-    width: 100%;
-    border: 1px solid var(--cream-dark);
-    border-radius: 9px;
-    padding: 0.72rem 1rem;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.92rem;
-    color: var(--ink);
-    background: var(--cream);
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-  .field input[type=number] { max-width: 130px; }
-  .field input:focus { border-color: var(--gold); }
-
-  /* ── DIVIDER ── */
-  .field-divider { height: 1px; background: var(--cream-dark); margin: 1.75rem 0; }
-
-  /* ── EVENT OPTIONS ── */
-  .events-label {
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    display: block;
-    margin-bottom: 0.9rem;
-  }
-  .event-opt {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem 1.1rem;
-    border: 1px solid var(--cream-dark);
-    border-radius: 11px;
-    margin-bottom: 0.6rem;
-    cursor: pointer;
-    background: #faf8f4;
-    transition: border-color 0.2s, background 0.2s;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .event-opt:hover { border-color: var(--gold-light); background: var(--white); }
-  .event-opt.selected { border-color: var(--gold); background: var(--white); }
-
-  .event-checkbox {
-    width: 19px;
-    height: 19px;
-    border: 1.5px solid var(--cream-dark);
-    border-radius: 5px;
-    flex-shrink: 0;
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.18s;
-  }
-  .event-opt.selected .event-checkbox {
-    background: var(--gold);
-    border-color: var(--gold);
-  }
-  .event-checkbox svg { opacity: 0; transition: opacity 0.15s; }
-  .event-opt.selected .event-checkbox svg { opacity: 1; }
-
-  .event-info { flex: 1; }
-  .event-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.18rem;
-    font-weight: 400;
-    color: var(--ink);
-    line-height: 1;
-  }
-  .event-meta {
-    font-size: 0.7rem;
-    color: var(--ink-muted);
-    margin-top: 0.25rem;
-    letter-spacing: 0.04em;
-  }
-  .event-city {
-    display: inline-block;
-    margin-top: 0.35rem;
-    font-size: 0.58rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    border: 1px solid var(--cream-dark);
-    color: var(--ink-muted);
-    padding: 0.12rem 0.6rem;
-    border-radius: 2rem;
-  }
-
-  /* ── SUBMIT BUTTON ── */
-  .submit-btn {
-    width: 100%;
-    background: var(--gold);
-    color: var(--white);
-    border: none;
-    border-radius: 10px;
-    padding: 0.9rem 1.5rem;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.12s;
-    margin-top: 0.5rem;
-  }
-  .submit-btn:hover { background: var(--gold-light); }
-  .submit-btn:active { transform: scale(0.98); }
-  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-  /* ── ERROR ── */
-  .field-error {
-    font-size: 0.68rem;
-    color: #b94040;
-    margin-top: 0.4rem;
-    display: none;
-    letter-spacing: 0.04em;
-  }
-  .field-error.show { display: block; }
-
-  /* ── THANK YOU ── */
-  .thanks-screen {
-    display: none;
-    text-align: center;
-    width: 100%;
-    max-width: 540px;
-  }
-  .thanks-screen.show { display: block; }
-  .rsvp-card.hide { display: none; }
-
-  .thanks-card {
-    background: var(--white);
-    border: 1px solid var(--cream-dark);
-    border-radius: 16px;
-    padding: 3rem 2rem;
-  }
-  .thanks-icon {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
-    color: var(--gold-light);
-    margin-bottom: 0.5rem;
-  }
-  .thanks-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--ink);
-    margin-bottom: 0.75rem;
-  }
-  .thanks-text {
-    font-size: 0.82rem;
-    color: var(--ink-muted);
-    line-height: 1.8;
-    letter-spacing: 0.04em;
-  }
-  .thanks-rule { width: 40px; height: 1px; background: var(--gold-light); margin: 1.5rem auto; }
-  .back-link {
-    display: inline-block;
-    font-size: 0.68rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-decoration: none;
-    border-bottom: 1px solid var(--gold-light);
-    padding-bottom: 0.1rem;
-    transition: color 0.2s;
-  }
-  .back-link:hover { color: var(--gold-light); }
-
-  /* ── FOOTER ── */
-  .rsvp-footer {
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 0.68rem;
-    color: var(--ink-muted);
-    letter-spacing: 0.06em;
-  }
-  .rsvp-footer-mono {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    color: var(--gold-light);
-    margin-bottom: 0.4rem;
-  }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+  #landing { position: fixed; inset: 0; background: var(--cream); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; transition: opacity 0.8s ease, transform 0.8s ease; }
+  #landing.open { opacity: 0; transform: translateY(-40px); pointer-events: none; }
+  .seal { width: 110px; height: 110px; border-radius: 50%; border: 1.5px solid var(--gold); background: var(--cream-dark); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; margin-bottom: 2rem; }
+  .seal:hover { transform: scale(1.06); box-shadow: 0 0 0 6px rgba(184,150,90,0.12); }
+  .seal-monogram { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; color: var(--gold); letter-spacing: 0.04em; }
+  .landing-hint { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); }
+  #content { opacity: 0; transition: opacity 0.8s ease 0.3s; pointer-events: none; }
+  #content.visible { opacity: 1; pointer-events: auto; }
+  .hero { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 1.5rem; position: relative; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, rgba(184,150,90,0.06) 0%, transparent 70%); pointer-events: none; }
+  .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .hero-names { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem, 10vw, 6.5rem); font-weight: 300; line-height: 1; color: var(--ink); margin-bottom: 1.2rem; }
+  .hero-amp { font-style: italic; color: var(--gold); }
+  .hero-date { font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 3rem; }
+  .hero-cities { display: flex; gap: 2rem; align-items: center; margin-bottom: 3.5rem; }
+  .city-pill { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; border: 1px solid var(--gold); color: var(--gold); padding: 0.45rem 1.1rem; border-radius: 2rem; }
+  .city-divider { color: var(--ink-muted); font-size: 0.8rem; }
+  .scroll-cue { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; animation: float 2.5s ease-in-out infinite; }
+  .scroll-cue::after { content: ''; width: 1px; height: 36px; background: linear-gradient(to bottom, var(--gold), transparent); }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  .section { max-width: 700px; margin: 0 auto; padding: 5rem 1.5rem; }
+  .section-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+  .tab-row { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+  .tab-btn { background: none; border: 1px solid var(--cream-dark); border-radius: 2rem; padding: 0.45rem 1.2rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); cursor: pointer; transition: all 0.2s; }
+  .tab-btn.active { background: var(--gold); border-color: var(--gold); color: var(--white); }
+  .events-panel { display: none; }
+  .events-panel.active { display: block; }
+  .event-card { display: grid; grid-template-columns: 80px 1fr; gap: 1.2rem; align-items: start; padding: 1.5rem 0; border-bottom: 1px solid var(--cream-dark); }
+  .event-card:last-child { border-bottom: none; }
+  .event-date-col { text-align: right; }
+  .event-day { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--gold); line-height: 1; }
+  .event-month { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); }
+  .event-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--ink); margin-bottom: 0.3rem; }
+  .event-meta { font-size: 0.76rem; color: var(--ink-muted); letter-spacing: 0.06em; }
+  .event-tag { display: inline-block; margin-top: 0.6rem; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid var(--cream-dark); color: var(--ink-muted); padding: 0.2rem 0.7rem; border-radius: 2rem; }
+  .countdown-block { text-align: center; padding: 3rem 1.5rem; border: 1px solid var(--cream-dark); border-radius: 12px; margin-top: 2rem; }
+  .countdown-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 1.5rem; }
+  .countdown-units { display: flex; justify-content: center; gap: 1.5rem; }
+  .cd-unit { text-align: center; }
+  .cd-num { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--ink); line-height: 1; }
+  .cd-lbl { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-top: 0.2rem; }
+  .cd-sep { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold-light); align-self: flex-start; margin-top: 0.3rem; }
+  .countdown-event { font-size: 0.72rem; color: var(--ink-muted); margin-top: 1rem; letter-spacing: 0.08em; }
+  .rsvp-form { background: var(--white); border: 1px solid var(--cream-dark); border-radius: 12px; padding: 2rem; text-align: center; }
+  .btn-primary { background: var(--gold); color: var(--white); border: none; border-radius: 8px; padding: 0.85rem 2.5rem; font-family: 'Jost', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; display: inline-block; text-decoration: none; }
+  .btn-primary:hover { background: var(--gold-light); }
+  .actions-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+  @media (max-width: 500px) { .actions-grid { grid-template-columns: 1fr; } }
+  .action-btn { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1.2rem 0.75rem; border: 1px solid var(--cream-dark); border-radius: 10px; background: var(--white); cursor: pointer; font-family: 'Jost', sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); transition: all 0.2s; text-decoration: none; }
+  .action-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .action-icon { font-size: 1.3rem; }
+  .footer { text-align: center; padding: 4rem 1.5rem 5rem; color: var(--ink-muted); font-size: 0.78rem; letter-spacing: 0.06em; }
+  .footer-monogram { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold-light); margin-bottom: 0.75rem; }
+  .footer-divider { width: 40px; height: 1px; background: var(--cream-dark); margin: 1rem auto; }
+  .modal-bg { display: none; position: fixed; inset: 0; background: rgba(44,36,20,0.5); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-bg.open { display: flex; }
+  .modal { background: var(--cream); border-radius: 14px; padding: 2rem; max-width: 480px; width: 100%; position: relative; max-height: 90svh; overflow-y: auto; }
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.4rem; color: var(--ink-muted); cursor: pointer; }
+  .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: 0.4rem; }
+  .modal-subtitle { font-size: 0.75rem; color: var(--ink-muted); margin-bottom: 1.5rem; }
+  .cal-option { display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--cream-dark); border-radius: 10px; margin-bottom: 0.75rem; background: var(--white); cursor: pointer; text-decoration: none; color: var(--ink); transition: border-color 0.2s; }
+  .cal-option:hover { border-color: var(--gold); }
+  .cal-option-icon { font-size: 1.6rem; width: 36px; text-align: center; }
+  .cal-option-name { font-size: 0.88rem; font-weight: 500; }
+  .cal-option-desc { font-size: 0.72rem; color: var(--ink-muted); margin-top: 0.1rem; }
+  .cal-divider { font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); text-align: center; margin: 1rem 0; }
+  .cal-steps { background: var(--cream-dark); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 0.75rem; }
+  .cal-steps h4 { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.75rem; }
+  .cal-step { display: flex; gap: 0.75rem; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--ink-soft); line-height: 1.4; }
+  .cal-step-num { flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); color: var(--white); font-size: 0.6rem; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
 </style>
 </head>
 <body>
 
-<!-- Hidden iframe to capture Google Form submission (prevents redirect) -->
-<iframe name="hidden-submit" style="display:none;" aria-hidden="true"></iframe>
-
-<header class="rsvp-header">
-  <div class="rsvp-mono">R × R</div>
-  <p class="rsvp-eyebrow">Kindly reply</p>
-  <h1 class="rsvp-title">Rasheek <span class="rsvp-amp">&</span> Radyah</h1>
-  <div class="rsvp-rule"></div>
-  <p class="rsvp-sub">Dec 2026 &nbsp;·&nbsp; Chittagong &amp; Dhaka</p>
-</header>
-
-<!-- RSVP FORM CARD -->
-<div class="rsvp-card" id="form-card">
-  <form
-    id="rsvp-form"
-    action="https://docs.google.com/forms/d/e/1FAIpQLSdmydU-KMp-9jBY7y-P4FDpjNcant4yEkw900RO-b4V19BbXw/formResponse"
-    method="POST"
-    target="hidden-submit"
-    onsubmit="handleSubmit(event)"
-  >
-
-    <!-- Full Name -->
-    <div class="field">
-      <label for="f-name">Full name</label>
-      <input type="text" id="f-name" name="entry.877086558" placeholder="Your full name" autocomplete="name">
-      <div class="field-error" id="err-name">Please enter your name.</div>
-    </div>
-
-    <!-- Number of guests -->
-    <div class="field">
-      <label for="f-guests">Number of guests <span style="font-size:0.55rem;opacity:0.7">(including yourself)</span></label>
-      <input type="number" id="f-guests" name="entry.1498135098" placeholder="1" min="1" max="30">
-      <div class="field-error" id="err-guests">Please enter the number of guests.</div>
-    </div>
-
-    <div class="field-divider"></div>
-
-    <!-- Events -->
-    <span class="events-label">Which events will you be attending?</span>
-    <div class="field-error" id="err-events" style="margin-bottom:0.6rem">Please select at least one event.</div>
-
-    <div class="event-opt" onclick="toggleEvent(this, 'Holud')">
-      <div class="event-checkbox">
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-          <path d="M2 5.5L4.5 8L9 3" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="event-info">
-        <div class="event-name">Holud</div>
-        <div class="event-meta">25 Dec 2026 &nbsp;·&nbsp; Outdoor &nbsp;·&nbsp; Daytime</div>
-        <span class="event-city">Chittagong</span>
-      </div>
-      <input type="checkbox" name="entry.1424661284" value="Holud" style="display:none" aria-hidden="true">
-    </div>
-
-    <div class="event-opt" onclick="toggleEvent(this, 'Wedding')">
-      <div class="event-checkbox">
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-          <path d="M2 5.5L4.5 8L9 3" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="event-info">
-        <div class="event-name">Wedding</div>
-        <div class="event-meta">26 Dec 2026 &nbsp;·&nbsp; Navy Convention &nbsp;·&nbsp; Night</div>
-        <span class="event-city">Chittagong</span>
-      </div>
-      <input type="checkbox" name="entry.1424661284" value="Wedding" style="display:none" aria-hidden="true">
-    </div>
-
-    <div class="event-opt" onclick="toggleEvent(this, 'Walima')">
-      <div class="event-checkbox">
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-          <path d="M2 5.5L4.5 8L9 3" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="event-info">
-        <div class="event-name">Walima</div>
-        <div class="event-meta">29 Dec 2026 &nbsp;·&nbsp; Venue TBC</div>
-        <span class="event-city">Dhaka</span>
-      </div>
-      <input type="checkbox" name="entry.1424661284" value="Walima" style="display:none" aria-hidden="true">
-    </div>
-
-    <div class="event-opt" onclick="toggleEvent(this, 'All of the events')">
-      <div class="event-checkbox">
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-          <path d="M2 5.5L4.5 8L9 3" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="event-info">
-        <div class="event-name">All of the events</div>
-        <div class="event-meta">Holud · Wedding · Walima</div>
-        <span class="event-city">CTG &amp; DHK</span>
-      </div>
-      <input type="checkbox" name="entry.1424661284" value="All of the events" style="display:none" aria-hidden="true">
-    </div>
-
-    <div class="field-divider"></div>
-
-    <button class="submit-btn" type="submit" id="submit-btn">Confirm RSVP</button>
-
-  </form>
+<div id="landing">
+  <div class="seal" onclick="openInvitation()" role="button">
+    <span class="seal-monogram">R × R</span>
+  </div>
+  <p class="landing-hint">Tap the seal to open</p>
 </div>
 
-<!-- THANK YOU SCREEN -->
-<div class="thanks-screen" id="thanks-screen">
-  <div class="thanks-card">
-    <div class="thanks-icon">💛</div>
-    <h2 class="thanks-title">Thank you!</h2>
-    <p class="thanks-text">
-      Your RSVP has been received.<br>
-      We can't wait to celebrate with you.
-    </p>
-    <div class="thanks-rule"></div>
-    <a href="index.html" class="back-link">← Back to invitation</a>
+<div id="content">
+
+  <section class="hero">
+    <p class="hero-eyebrow">Save the date</p>
+    <h1 class="hero-names">Rasheek <span class="hero-amp">&</span> Radyah</h1>
+    <p class="hero-date">Dec 2026 &nbsp;•&nbsp; Chittagong &amp; Dhaka</p>
+    <div class="hero-cities">
+      <span class="city-pill">CTG</span>
+      <span class="city-divider">·</span>
+      <span class="city-pill">DHK</span>
+    </div>
+    <div class="scroll-cue">Invitation details inside</div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">✦ Events</p>
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchCity('ctg', this)">Chittagong</button>
+      <button class="tab-btn" onclick="switchCity('dhk', this)">Dhaka</button>
+    </div>
+
+    <div id="panel-ctg" class="events-panel active">
+      <div class="event-card">
+        <div class="event-date-col"><div class="event-day">25</div><div class="event-month">Dec 2026</div></div>
+        <div><div class="event-name">Holud</div><div class="event-meta">Chittagong &nbsp;·&nbsp; Outdoor &nbsp;·&nbsp; Daytime</div><span class="event-tag">CTG</span></div>
+      </div>
+      <div class="event-card">
+        <div class="event-date-col"><div class="event-day">26</div><div class="event-month">Dec 2026</div></div>
+        <div><div class="event-name">Wedding</div><div class="event-meta">Chittagong &nbsp;·&nbsp; Navy Convention &nbsp;·&nbsp; Indoor &nbsp;·&nbsp; Night</div><span class="event-tag">CTG</span></div>
+      </div>
+    </div>
+
+    <div id="panel-dhk" class="events-panel">
+      <div class="event-card">
+        <div class="event-date-col"><div class="event-day">29</div><div class="event-month">Dec 2026</div></div>
+        <div><div class="event-name">Walima</div><div class="event-meta">Dhaka &nbsp;·&nbsp; Venue TBC</div><span class="event-tag">DHK</span></div>
+      </div>
+    </div>
+
+    <div class="countdown-block">
+      <div class="countdown-label">Counting down to Holud</div>
+      <div class="countdown-units">
+        <div class="cd-unit"><div class="cd-num" id="cd-d">—</div><div class="cd-lbl">Days</div></div>
+        <div class="cd-sep">·</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-h">—</div><div class="cd-lbl">Hours</div></div>
+        <div class="cd-sep">·</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-m">—</div><div class="cd-lbl">Mins</div></div>
+        <div class="cd-sep">·</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-s">—</div><div class="cd-lbl">Secs</div></div>
+      </div>
+      <div class="countdown-event">25 Dec 2026 &nbsp;·&nbsp; Chittagong</div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <p class="section-label">✦ RSVP</p>
+    <div class="rsvp-form">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--ink);margin-bottom:0.5rem;">Will you be joining us?</p>
+      <p style="font-size:0.78rem;color:var(--ink-muted);margin-bottom:2rem;letter-spacing:0.04em;">Kindly let us know by filling out the form below.</p>
+      <a href="rsvp.html" class="btn-primary">RSVP Now</a>
+      <p style="font-size:0.7rem;color:var(--ink-muted);margin-top:1.2rem;">Your response will be recorded in our guest list. 💛</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <p class="section-label">✦ Quick actions</p>
+    <div class="actions-grid">
+      <button class="action-btn" onclick="shareInvite()"><span class="action-icon">🔗</span>Share</button>
+      <button class="action-btn" onclick="document.getElementById('cal-modal').classList.add('open')"><span class="action-icon">📅</span>Add to calendar</button>
+      <button class="action-btn" onclick="copyLink()"><span class="action-icon">📋</span>Copy link</button>
+    </div>
+    <div id="copy-toast" style="display:none;margin-top:1rem;text-align:center;font-size:0.75rem;color:var(--gold);letter-spacing:0.06em;">Link copied ✓</div>
+    <p style="margin-top:1.5rem;font-size:0.75rem;color:var(--ink-muted);text-align:center;">Chittagong + Dhaka &nbsp;·&nbsp; Exact venues shared closer to the dates.</p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-monogram">R × R</div>
+    <div class="footer-divider"></div>
+    <p>We can't wait to celebrate with you. 💛</p>
+  </footer>
+
+</div>
+
+<div class="modal-bg" id="cal-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('cal-modal').classList.remove('open')">✕</button>
+    <div class="modal-title">Add to calendar</div>
+    <div class="modal-subtitle">Choose your device or app</div>
+    <div class="cal-option" onclick="downloadIcs(event)" style="cursor:pointer;">
+      <span class="cal-option-icon">🍎</span>
+      <div><div class="cal-option-name">iPhone / iPad (Apple Calendar)</div><div class="cal-option-desc">Downloads .ics — tap to add all 3 events instantly</div></div>
+    </div>
+    <div class="cal-option" onclick="downloadIcs(event)" style="cursor:pointer;">
+      <span class="cal-option-icon">🤖</span>
+      <div><div class="cal-option-name">Android (Google Calendar)</div><div class="cal-option-desc">Downloads .ics — open file, tap "Add to Calendar"</div></div>
+    </div>
+    <div class="cal-divider">or add each event individually</div>
+    <a class="cal-option" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Rasheek+%26+Radyah+%E2%80%94+Holud&dates=20261225T060000Z%2F20261225T120000Z&details=Holud+%E2%80%94+Chittagong&location=Chittagong%2C+Bangladesh" target="_blank" rel="noopener">
+      <span class="cal-option-icon">🗓️</span>
+      <div><div class="cal-option-name">Google Calendar — Holud</div><div class="cal-option-desc">25 Dec 2026 · Chittagong</div></div>
+    </a>
+    <a class="cal-option" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Rasheek+%26+Radyah+%E2%80%94+Wedding&dates=20261226T140000Z%2F20261226T200000Z&details=Wedding+%E2%80%94+Navy+Convention%2C+Chittagong&location=Navy+Convention%2C+Chittagong" target="_blank" rel="noopener">
+      <span class="cal-option-icon">🗓️</span>
+      <div><div class="cal-option-name">Google Calendar — Wedding</div><div class="cal-option-desc">26 Dec 2026 · Navy Convention, Chittagong</div></div>
+    </a>
+    <a class="cal-option" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Rasheek+%26+Radyah+%E2%80%94+Walima&dates=20261229T060000Z%2F20261229T120000Z&details=Walima+%E2%80%94+Dhaka&location=Dhaka%2C+Bangladesh" target="_blank" rel="noopener">
+      <span class="cal-option-icon">🗓️</span>
+      <div><div class="cal-option-name">Google Calendar — Walima</div><div class="cal-option-desc">29 Dec 2026 · Dhaka</div></div>
+    </a>
+    <div class="cal-divider">desktop</div>
+    <a class="cal-option" href="#" onclick="downloadIcs(event)">
+      <span class="cal-option-icon">📁</span>
+      <div><div class="cal-option-name">Outlook / Apple Mail / Thunderbird</div><div class="cal-option-desc">Download .ics and double-click to import</div></div>
+    </a>
+    <div class="cal-steps">
+      <h4>iPhone / iPad</h4>
+      <div class="cal-step"><span class="cal-step-num">1</span><span>Tap "iPhone / iPad" above</span></div>
+      <div class="cal-step"><span class="cal-step-num">2</span><span>Tap <strong>"Add All"</strong> when prompted — all 3 events added</span></div>
+      <div class="cal-step"><span class="cal-step-num">3</span><span>If no prompt: Files app → Downloads → tap the .ics file</span></div>
+    </div>
+    <div class="cal-steps">
+      <h4>Android</h4>
+      <div class="cal-step"><span class="cal-step-num">1</span><span>Tap "Android" above</span></div>
+      <div class="cal-step"><span class="cal-step-num">2</span><span>Open Downloads → tap file → open with <strong>Google Calendar</strong></span></div>
+      <div class="cal-step"><span class="cal-step-num">3</span><span>Tap <strong>"Add"</strong> for each event</span></div>
+    </div>
   </div>
 </div>
 
-<footer class="rsvp-footer">
-  <div class="rsvp-footer-mono">R × R</div>
-  <p>Exact venues will be shared closer to the dates.</p>
-</footer>
-
 <script>
-function toggleEvent(el, value) {
-  el.classList.toggle('selected');
-  const cb = el.querySelector('input[type=checkbox]');
-  cb.checked = !cb.checked;
-
-  if (value === 'All of the events' && cb.checked) {
-    document.querySelectorAll('.event-opt').forEach(opt => {
-      opt.classList.add('selected');
-      opt.querySelector('input[type=checkbox]').checked = true;
-    });
-  }
+function openInvitation() {
+  document.getElementById('landing').classList.add('open');
+  document.getElementById('content').classList.add('visible');
 }
-
-function handleSubmit(e) {
-  let valid = true;
-
-  const name = document.getElementById('f-name').value.trim();
-  const guests = document.getElementById('f-guests').value.trim();
-  const checked = document.querySelectorAll('input[name="entry.1424661284"]:checked');
-
-  document.getElementById('err-name').classList.toggle('show', !name);
-  document.getElementById('err-guests').classList.toggle('show', !guests);
-  document.getElementById('err-events').classList.toggle('show', checked.length === 0);
-
-  if (!name || !guests || checked.length === 0) {
-    e.preventDefault();
-    return;
+function switchCity(city, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.events-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + city).classList.add('active');
+}
+(function() {
+  const target = new Date('2026-12-25T06:00:00Z');
+  function update() {
+    const diff = target - Date.now();
+    if (diff <= 0) { ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '0'); return; }
+    document.getElementById('cd-d').textContent = Math.floor(diff / 86400000);
+    document.getElementById('cd-h').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
   }
-
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-
-  setTimeout(() => {
-    document.getElementById('form-card').classList.add('hide');
-    document.getElementById('thanks-screen').classList.add('show');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 900);
+  update(); setInterval(update, 1000);
+})();
+function downloadIcs(e) {
+  if(e) e.preventDefault();
+  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Rasheek & Radyah//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+    'BEGIN:VEVENT','UID:holud@rr2026','DTSTART:20261225T060000Z','DTEND:20261225T120000Z','SUMMARY:Rasheek & Radyah — Holud','LOCATION:Chittagong\\, Bangladesh','END:VEVENT',
+    'BEGIN:VEVENT','UID:wedding@rr2026','DTSTART:20261226T140000Z','DTEND:20261226T200000Z','SUMMARY:Rasheek & Radyah — Wedding','LOCATION:Navy Convention\\, Chittagong','END:VEVENT',
+    'BEGIN:VEVENT','UID:walima@rr2026','DTSTART:20261229T060000Z','DTEND:20261229T120000Z','SUMMARY:Rasheek & Radyah — Walima','LOCATION:Dhaka\\, Bangladesh','END:VEVENT',
+    'END:VCALENDAR'].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([ics], {type:'text/calendar'}));
+  a.download = 'RasheekRadyah.ics'; a.click();
+}
+function shareInvite() {
+  const d = { title: 'Rasheek & Radyah — Save the Date', text: '💛 You\'re invited! Dec 2026, Chittagong & Dhaka.', url: location.href };
+  if (navigator.share) navigator.share(d).catch(() => copyLink());
+  else copyLink();
+}
+function copyLink() {
+  navigator.clipboard.writeText(location.href).then(() => {
+    const t = document.getElementById('copy-toast');
+    t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500);
+  });
 }
 </script>
 </body>
