@@ -72,19 +72,18 @@
 
 <div class="rsvp-card" id="form-card">
   <div class="field">
-    <label for="f-name">Full name</label>
+    <label>Full name</label>
     <input type="text" id="f-name" placeholder="Your full name" autocomplete="name">
     <div class="field-error" id="err-name">Please enter your name.</div>
   </div>
   <div class="field">
-    <label for="f-guests">Number of guests <span style="font-size:0.55rem;opacity:0.7">(including yourself)</span></label>
+    <label>Number of guests <span style="font-size:0.55rem;opacity:0.7">(including yourself)</span></label>
     <input type="number" id="f-guests" placeholder="1" min="1" max="30">
     <div class="field-error" id="err-guests">Please enter the number of guests.</div>
   </div>
   <div class="field-divider"></div>
   <span class="events-label">Which events will you be attending?</span>
   <div class="field-error" id="err-events" style="margin-bottom:0.6rem">Please select at least one event.</div>
-
   <div class="event-opt" onclick="toggleEvent(this,'Holud')">
     <div class="event-checkbox"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     <div class="event-info"><div class="event-name">Holud</div><div class="event-meta">25 Dec 2026 &nbsp;·&nbsp; Outdoor &nbsp;·&nbsp; Daytime</div><span class="event-city">Chittagong</span></div>
@@ -101,7 +100,6 @@
     <div class="event-checkbox"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5L4.5 8L9 3" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     <div class="event-info"><div class="event-name">All of the events</div><div class="event-meta">Holud · Wedding · Walima</div><span class="event-city">CTG &amp; DHK</span></div>
   </div>
-
   <div class="field-divider"></div>
   <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">Confirm RSVP</button>
 </div>
@@ -114,6 +112,21 @@
     <div class="thanks-rule"></div>
     <a href="index.html" class="back-link">← Back to invitation</a>
   </div>
+</div>
+
+<div style="display:none">
+  <iframe name="void-frame"></iframe>
+  <form id="real-form"
+    action="https://docs.google.com/forms/d/e/1FAIpQLSdmydU-KMp-9jBY7y-P4FDpjNcant4yEkw900RO-b4V19BbXw/formResponse"
+    method="POST"
+    target="void-frame">
+    <input type="text" name="entry.877086558" id="r-name">
+    <input type="text" name="entry.1498135098" id="r-guests">
+    <input type="checkbox" name="entry.1424661284" id="r-holud" value="Holud">
+    <input type="checkbox" name="entry.1424661284" id="r-wedding" value="Wedding">
+    <input type="checkbox" name="entry.1424661284" id="r-walima" value="Walima">
+    <input type="checkbox" name="entry.1424661284" id="r-all" value="All of the events">
+  </form>
 </div>
 
 <footer class="rsvp-footer">
@@ -129,49 +142,36 @@ function toggleEvent(el, value) {
   if (el.classList.contains('selected')) {
     if (!selected.includes(value)) selected.push(value);
     if (value === 'All of the events') {
-      document.querySelectorAll('.event-opt').forEach(function(opt) {
-        opt.classList.add('selected');
-      });
+      document.querySelectorAll('.event-opt').forEach(function(opt) { opt.classList.add('selected'); });
       selected = ['Holud', 'Wedding', 'Walima', 'All of the events'];
     }
   } else {
     selected = selected.filter(function(v) { return v !== value; });
+    if (value === 'All of the events') {
+      document.querySelectorAll('.event-opt').forEach(function(opt) { opt.classList.remove('selected'); });
+      selected = [];
+    }
   }
 }
 
 function handleSubmit() {
-  var name = document.getElementById('f-name').value.trim();
+  var name   = document.getElementById('f-name').value.trim();
   var guests = document.getElementById('f-guests').value.trim();
 
   document.getElementById('err-name').classList.toggle('show', !name);
   document.getElementById('err-guests').classList.toggle('show', !guests);
   document.getElementById('err-events').classList.toggle('show', selected.length === 0);
-
   if (!name || !guests || selected.length === 0) return;
 
-  var btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
+  document.getElementById('r-name').value   = name;
+  document.getElementById('r-guests').value = guests;
+  document.getElementById('r-holud').checked   = selected.includes('Holud');
+  document.getElementById('r-wedding').checked = selected.includes('Wedding');
+  document.getElementById('r-walima').checked  = selected.includes('Walima');
+  document.getElementById('r-all').checked     = selected.includes('All of the events');
 
-  var formData = new FormData();
-  formData.append('entry.877086558', name);
-  formData.append('entry.1498135098', guests);
-  selected.forEach(function(v) {
-    formData.append('entry.1424661284', v);
-  });
+  document.getElementById('real-form').submit();
 
-  fetch('https://docs.google.com/forms/d/e/1FAIpQLSdmydU-KMp-9jBY7y-P4FDpjNcant4yEkw900RO-b4V19BbXw/formResponse', {
-    method: 'POST',
-    mode: 'no-cors',
-    body: formData
-  }).then(function() {
-    showThanks();
-  }).catch(function() {
-    showThanks();
-  });
-}
-
-function showThanks() {
   document.getElementById('form-card').classList.add('hide');
   document.getElementById('thanks-screen').classList.add('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
