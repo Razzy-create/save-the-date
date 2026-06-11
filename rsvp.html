@@ -8,11 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --gold: #b8965a; --gold-light: #d4b07a; --cream: #f7f3ea;
-    --cream-dark: #ede8db; --ink: #2c2414; --ink-soft: #5a4e3a;
-    --ink-muted: #8a7a60; --white: #ffffff;
-  }
+  :root { --gold: #b8965a; --gold-light: #d4b07a; --cream: #f7f3ea; --cream-dark: #ede8db; --ink: #2c2414; --ink-soft: #5a4e3a; --ink-muted: #8a7a60; --white: #ffffff; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--ink); min-height: 100svh; display: flex; flex-direction: column; align-items: center; padding: 3rem 1.25rem 4rem; }
   .rsvp-header { text-align: center; margin-bottom: 2.5rem; }
@@ -114,21 +110,6 @@
   </div>
 </div>
 
-<div style="display:none">
-  <iframe name="void-frame"></iframe>
-  <form id="real-form"
-    action="https://docs.google.com/forms/d/e/1FAIpQLSdmydU-KMp-9jBY7y-P4FDpjNcant4yEkw900RO-b4V19BbXw/formResponse"
-    method="POST"
-    target="void-frame">
-    <input type="text" name="entry.877086558" id="r-name">
-    <input type="text" name="entry.1498135098" id="r-guests">
-    <input type="checkbox" name="entry.1424661284" id="r-holud" value="Holud">
-    <input type="checkbox" name="entry.1424661284" id="r-wedding" value="Wedding">
-    <input type="checkbox" name="entry.1424661284" id="r-walima" value="Walima">
-    <input type="checkbox" name="entry.1424661284" id="r-all" value="All of the events">
-  </form>
-</div>
-
 <footer class="rsvp-footer">
   <div class="rsvp-footer-mono">R × R</div>
   <p>Exact venues will be shared closer to the dates.</p>
@@ -136,6 +117,7 @@
 
 <script>
 var selected = [];
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxTcRCYi-SXVybaDMJaM50PXvDE7Rr3ttbPsQ9TzZGIg0BENFd2DTt4ghdr6CW-IUM/exec';
 
 function toggleEvent(el, value) {
   el.classList.toggle('selected');
@@ -163,15 +145,28 @@ function handleSubmit() {
   document.getElementById('err-events').classList.toggle('show', selected.length === 0);
   if (!name || !guests || selected.length === 0) return;
 
-  document.getElementById('r-name').value   = name;
-  document.getElementById('r-guests').value = guests;
-  document.getElementById('r-holud').checked   = selected.includes('Holud');
-  document.getElementById('r-wedding').checked = selected.includes('Wedding');
-  document.getElementById('r-walima').checked  = selected.includes('Walima');
-  document.getElementById('r-all').checked     = selected.includes('All of the events');
+  var btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
 
-  document.getElementById('real-form').submit();
+  var params = new URLSearchParams();
+  params.append('name', name);
+  params.append('guests', guests);
+  selected.forEach(function(v) { params.append('events', v); });
 
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  }).then(function() {
+    showThanks();
+  }).catch(function() {
+    showThanks();
+  });
+}
+
+function showThanks() {
   document.getElementById('form-card').classList.add('hide');
   document.getElementById('thanks-screen').classList.add('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
